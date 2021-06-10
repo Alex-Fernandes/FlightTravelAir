@@ -1,0 +1,68 @@
+<?php
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('gestorvooheader') ?>
+<?php $flight = Data::get('flights') ?>
+<?php $aeroportos = Data::get('aeroporto') ?>
+<?php ErrMgr::attach($flight) ?>
+
+    <!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Edit Flight</h1>
+                </header>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <hr>
+
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('flights/update', $flight->id)?>">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Aeroporto:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <select name="idaeroporto" class="form-control" required name="idaeroporto">
+                                        <?php
+                                        foreach ($aeroportos as $aeroporto) {
+                                            echo '<option value="'.$aeroporto->id.'" '.(($aeroporto->id==$flight->idaeroporto)?'selected="selected"':"").'>'.$aeroporto->nome.'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <?= ErrMgr::bind('idaeroporto') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Preco Venda:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$flight->precovenda?>" class="form-control" required name="precoVenda" placeholder="Cidade">
+                                    <?= ErrMgr::bind('precovenda') ?>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-default" type="submit">Save</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+        </div>
+
+
+
+        </article>
+        <!-- /Article -->
+
+    </div>
+    </div>	<!-- /container -->
+    <br><br><br><br><br><br><br>
+<?php Layout::includeLayout('footer') ?>

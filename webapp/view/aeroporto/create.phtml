@@ -1,0 +1,60 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('adminheader') ?>
+<?php $aeroporto = Data::get('aeroportos') ?>
+<?php ErrMgr::attach($aeroporto) ?>
+
+    <!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">New Aeroporto</h1>
+                </header>
+
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <form method="post" action="<?=Url::toRoute('aeroporto/store')?>">
+                                <div class="top-margin">
+                                    <label>Nome <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $aeroporto->nome ?>" name="nome" class="form-control">
+                                    <?= ErrMgr::bind('nome') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Cidade <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $aeroporto->cidade ?>" name="cidade" class="form-control">
+                                    <?= ErrMgr::bind('cidade') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Pais <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $aeroporto->pais ?>" name="pais" class="form-control">
+                                    <?= ErrMgr::bind('pais') ?>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-lg-4 text-middle">
+                                        <button class="btn btn-action" type="submit">Introduzir aeroporto</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+            <!-- /Article -->
+
+        </div>
+    </div>	<!-- /container -->
+
+<?php Layout::includeLayout('footer') ?>

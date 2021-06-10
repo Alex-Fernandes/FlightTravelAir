@@ -1,0 +1,57 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('gestorvooheader') ?>
+<?php $planelegs = Data::get('planelegs');
+\ArmoredCore\WebObjects\Debug::barDump($planelegs);?>
+<?php $legs = Data::get('legs') ?>
+<?php $planes = Data::get('planes') ?>
+    <!-- container -->
+    <div class="container">
+
+        <ol class="breadcrumb">
+            <li><a href="../../../middleware/frontcontroller.php">Home</a></li>
+            <li class="active">Plane Leg Index</li>
+        </ol>
+
+        <h2 class="text-left top-space">Plane Leg Index</h2>
+        <h2 class="top-space"></h2>
+        <div class="row">
+            <div class="col-sm-120">
+                <table class="table table-striped"><thead><th><h3>Escalas</h3></th><th><h3>Aviao</h3></th><th><h3>Numero Passageiros</h3></th><th><h3>Bilhetes Vendidos</h3></th></thead>
+                    <tbody>
+                    <?php foreach ($planelegs as $planeleg) { ?>
+                        <tr>
+
+                            <td><?=$planeleg->idescala?></td>
+                            <td><?php
+                                foreach ($planes as $plane) {
+                                    if($plane->id == $planeleg->idaviao) {
+                                        echo ' <option value=' . $planeleg->id . '>' . $plane->referencia . '</option>';
+                                    }
+                                }?></td>
+                            <td><?=$planeleg->numpassageiros?></td>
+                            <td><?=$planeleg->numbilhetesvendidos?></td>
+                            <td width="500">
+                                <a href="<?=Url::toRoute('planelegs/edit', $planeleg->id)?>" class="btn btn-info" role="button">Edit</a>
+                                <a href="<?=Url::toRoute('planelegs/destroy', $planeleg->id)?>" class="btn btn-warning" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="col-sm-6">
+                <h3>Create a new Leg</h3>
+                <p>
+                    <a href="<?=Url::toRoute('planelegs/create')?>" class="btn btn-info" role="button">New</a>
+                </p>
+            </div>
+        </div> <!-- /row -->
+
+    </div>	<!-- /container -->
+<?php Layout::includeLayout('footer')?>

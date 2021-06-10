@@ -1,0 +1,60 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('gestorvooheader') ?>
+<?php $planes = Data::get('planes')?>
+<?php ErrMgr::attach($planes) ?>
+
+    <!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">New Plane</h1>
+                </header>
+
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <form method="post" action="<?=Url::toRoute('plane/store')?>">
+                                <div class="top-margin">
+                                    <label>Referencia <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $planes->referencia?>" name="referencia" class="form-control" placeholder="Introduza a Referencia">
+                                    <?= ErrMgr::bind('referencia') ?>
+                                </div>
+
+                                <div class="top-margin">
+                                    <label>Lotação <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $planes->lotacao?>" name="lotacao" class="form-control" placeholder="Introduza a Lotação">
+                                    <?= ErrMgr::bind('lotacao') ?>
+                                </div>
+
+                                <div class="top-margin">
+                                    <label>Tipo de Avião <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $planes->tipoaviao?>" name="tipoaviao" class="form-control" placeholder="Introduza o Tipo de Avião">
+                                    <?= ErrMgr::bind('tipoaviao') ?>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4 text-middle">
+                                        <button class="btn btn-action" type="submit">Introduzir Plane</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+            <!-- /Article -->
+
+        </div>
+    </div>	<!-- /container -->
+
+<?php Layout::includeLayout('footer') ?>

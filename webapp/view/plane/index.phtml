@@ -1,0 +1,52 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('gestorvooheader') ?>
+<?php $planes = Data::get('planes');
+
+?>
+
+    <!-- container -->
+    <div class="container">
+
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Plane Index</li>
+        </ol>
+
+        <h2 class="text-left top-space">Plane Index</h2>
+        <h2 class="top-space"></h2>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped"><thead><th><h3>Id</h3></th><th><h3>Referencia</h3></th><th><h3>Lotação</h3></th><th><h3>Tipo de Avião</h3></th></thead>
+                    <tbody>
+                    <?php foreach ($planes as $plane) { ?>
+                        <tr>
+                            <td><?=$plane->id?></td>
+                            <td><?=$plane->referencia?></td>
+                            <td><?=$plane->lotacao?></td>
+                            <td><?=$plane->tipoaviao?></td>
+                            <td>
+                                <!--<a href="<?=Url::toRoute('plane/show', $plane->id)?>" class="btn btn-info" role="button">Show</a> -->
+                                <a href="<?=Url::toRoute('plane/edit', $plane->id)?>" class="btn btn-info" role="button">Edit</a>
+                                <a href="<?=Url::toRoute('plane/destroy', $plane->id)?>" class="btn btn-warning" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="col-sm-6">
+                <h3>Add a New Plane</h3>
+                <p>
+                    <a href="<?=Url::toRoute('plane/create')?>" class="btn btn-info" role="button">New</a>
+                </p>
+            </div>
+        </div> <!-- /row -->
+
+    </div>	<!-- /container -->
+<?php Layout::includeLayout('footer')?>

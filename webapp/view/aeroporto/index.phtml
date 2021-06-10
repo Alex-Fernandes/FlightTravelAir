@@ -1,0 +1,50 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('adminheader') ?>
+<?php $aeroportos = Data::get('aeroportos')?>
+
+    <!-- container -->
+    <div class="container">
+
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Aeroporto Index</li>
+        </ol>
+
+        <h2 class="text-left top-space">Aeroporto Index</h2>
+        <h2 class="top-space"></h2>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped"><thead><th><h3>Id</h3></th><th><h3>Nome</h3></th><th><h3>Localizacao</h3></th><th><h3>Pais</h3></th></thead>
+                    <tbody>
+                    <?php foreach ($aeroportos as $aeroporto) { ?>
+                        <tr>
+                            <td><?=$aeroporto->id?></td>
+                            <td><?=$aeroporto->nome?></td>
+                            <td><?=$aeroporto->cidade?></td>
+                            <td><?=$aeroporto->pais?></td>
+                            <td>
+                                <!--<a href="<?=Url::toRoute('aeroporto/show', $aeroporto->id)?>" class="btn btn-info" role="button">Show</a> -->
+                                <a href="<?=Url::toRoute('aeroporto/edit', $aeroporto->id)?>" class="btn btn-info" role="button">Edit</a>
+                                <a href="<?=Url::toRoute('aeroporto/destroy', $aeroporto->id)?>" class="btn btn-warning" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="col-sm-6">
+                <h3>Create a new Aeroporto</h3>
+                <p>
+                    <a href="<?=Url::toRoute('aeroporto/create')?>" class="btn btn-info" role="button">New</a>
+                </p>
+            </div>
+        </div> <!-- /row -->
+
+    </div>	<!-- /container -->
+<?php Layout::includeLayout('footer')?>

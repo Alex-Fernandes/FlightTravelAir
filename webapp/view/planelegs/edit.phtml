@@ -1,0 +1,92 @@
+<?php
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('gestorvooheader') ?>
+<?php $planelegs = Data::get('planelegs') ?>
+<?php $legs = Data::get('legs') ?>
+<?php $planes = Data::get('planes') ?>
+<?php ErrMgr::attach($planelegs) ?>
+
+    <!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Edit Plane Leg</h1>
+                </header>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <hr>
+
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('planelegs/update', $planelegs->id)?>">
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Plane Leg:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <select type="text" value="<?=$legs->idescala?>" class="form-control" required name="idescala">
+                                        ///https://stackoverflow.com/questions/3507042/if-block-inside-echo-statement
+                                        //Ternary operators
+                                        <?php
+                                        foreach ($legs as $leg) {
+                                            echo ' <option value='.$leg->id.'>'.$leg->id.'</option>';                                        }
+                                        ?>
+                                    </select>
+                                    <?= ErrMgr::bind('idescala') ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Aviao:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <select name="idaviao" class="form-control">
+                                        <?php
+                                        foreach ($planes as $plane) {
+                                            echo ' <option value='.$plane->id.'>'.$plane->id.'</option>';                                         }
+                                        ?>
+                                    </select>
+                                   <?= ErrMgr::bind('idaeroportodestino') ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Numero Passageiros:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$planelegs->numpassageiros?>" class="form-control" required name="numpassageiros">
+                                    <?= ErrMgr::bind('numpassageiros') ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Numero Bilhetes Vendidos:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$planelegs->numbilhetesvendidos?>" class="form-control" required name="numbilhetesvendidos">
+                                    <?= ErrMgr::bind('numbilhetesvendidos') ?>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-default" type="submit">Save</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+        </div>
+
+
+
+        </article>
+        <!-- /Article -->
+
+    </div>
+    </div>	<!-- /container -->
+    <br><br><br><br><br><br><br>
+<?php Layout::includeLayout('footer') ?>

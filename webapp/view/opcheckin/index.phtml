@@ -1,0 +1,57 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('adminheader') ?>
+<?php $opcheckin = Data::get('opcheckin');
+?>
+
+    <!-- container -->
+    <div class="container">
+
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Operador de Checkin Index</li>
+        </ol>
+
+        <h2 class="text-left top-space">Operador de Checkin</h2>
+        <h2 class="top-space"></h2>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped"><thead><th><h3>Id</h3></th><th><h3>Nome</h3></th>
+                    <th><h3>Morada</h3></th><th><h3>Email</h3></th><th><h3>Nif</h3></th><th><h3>Telefone</h3>
+                    </th><th><h3>Username</h3></th><th><h3>Password</h3></th></thead>
+                    <tbody>
+                    <?php foreach ($opcheckin as $opcheck) { ?>
+                        <tr>
+                            <td><?=$opcheck->id?></td>
+                            <td><?=$opcheck->nome?></td>
+                            <td><?=$opcheck->morada?></td>
+                            <td><?=$opcheck->email?></td>
+                            <td><?=$opcheck->nif?></td>
+                            <td><?=$opcheck->telefone?></td>
+                            <td><?=$opcheck->username?></td>
+                            <td><?=$opcheck->password?></td>
+                            <td>
+                                <!--<a href="<?/*=Url::toRoute('aeroporto/show', $opcheck->id)*/?>" class="btn btn-info" role="button">Show</a> -->
+                            <a href="<?=Url::toRoute('opcheckin/checkINEdit', $opcheck->id)?>" class="btn btn-info" role="button">Edit</a>
+                                <a href="<?=Url::toRoute('opcheckin/checkINDestroy', $opcheck->id)?>" class="btn btn-warning" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="col-sm-6">
+                <h3>Create a new Aeroporto</h3>
+                <p>
+                    <a href="<?=Url::toRoute('opcheckin/create')?>" class="btn btn-info" role="button">New</a>
+                </p>
+            </div>
+        </div> <!-- /row -->
+
+    </div>	<!-- /container -->
+<?php Layout::includeLayout('footer')?>

@@ -38,17 +38,18 @@ Router::resource('aeroporto', 'AeroportoAppController');
 Router::resource('user', 'UserAppController');
 //Flights
 Router::resource('flights', 'FlightAppController');
-//Legs
-Router::resource('legs', 'LegsAppController');
+//Layover
+Router::resource('layover', 'LayoverController');
 //Plane
 Router::resource('plane', 'PlaneAppController');
-//Planelegs
-Router::get('planelegs/index',      'PlaneLegsAppController/index');
-Router::get('planelegs/create',      'PlaneLegsAppController/createCustom');
-Router::Post('planelegs/store',      'PlaneLegsAppController/store');
-Router::get('planelegs/edit',      'PlaneLegsAppController/edit');
-Router::Post('planelegs/update',      'PlaneLegsAppController/update');
-Router::Post('planelegs/destroy',      'PlaneLegsAppController/destroy');
+
+//Layoverplanes
+Router::get('layoverplanes/index',      'LayoverPlanesController/index');
+Router::get('layoverplanes/create',      'LayoverPlanesController/createCustom');
+Router::Post('layoverplanes/store',      'LayoverPlanesController/store');
+Router::get('layoverplanes/edit',      'LayoverPlanesController/edit');
+Router::Post('layoverplanes/update',      'LayoverPlanesController/update');
+Router::Post('layoverplanes/destroy',      'LayoverPlanesController/destroy');
 
 /***** PassageiroAPP Controller *****/
 Router::get('passageiroapp/index', 'PassageiroAppController/index');

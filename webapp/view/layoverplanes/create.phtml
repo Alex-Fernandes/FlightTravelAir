@@ -4,8 +4,8 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('gestorvooheader') ?>
-<?php $planelegs = Data::get('planelegs') ?>
-<?php $legs = Data::get('legs') ?>
+<?php $planelegs = Data::get('layoverplanes') ?>
+<?php $legs = Data::get('layover') ?>
 <?php $planes = Data::get('planes') ?>
 <?php ErrMgr::attach($planelegs);
 \ArmoredCore\WebObjects\Debug::barDump($legs);
@@ -27,7 +27,7 @@ Layout::includeLayout('gestorvooheader') ?>
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form method="post" action="<?=Url::toRoute('planelegs/store')?>">
+                            <form method="post" action="<?=Url::toRoute('layoverplanes/store')?>">
                                 <div class="top-margin">
                                     <label>Voo <span class="text-danger">*</span></label>
                                     <select name="idescala" class="form-control">

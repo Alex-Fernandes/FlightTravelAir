@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('gestorvooheader') ?>
-<?php $legs = Data::get('legs') ?>
+<?php $legs = Data::get('layover') ?>
 <?php $flights = Data::get('flights') ?>
 <?php $aeroportos = Data::get('aeroporto') ?>
 <?php ErrMgr::attach($legs) ?>
@@ -24,7 +24,7 @@ Layout::includeLayout('gestorvooheader') ?>
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form method="post" action="<?=Url::toRoute('legs/store')?>">
+                            <form method="post" action="<?=Url::toRoute('layover/store')?>">
                                 <div class="top-margin">
                                     <label>Voo <span class="text-danger">*</span></label>
                                     <select name="idvoo" class="form-control">
@@ -63,15 +63,28 @@ Layout::includeLayout('gestorvooheader') ?>
 
                                 <div class="top-margin">
                                     <label>Data de Origem <span class="text-danger">*</span></label>
-                                    <input type="text" value="<?= $legs->dateorigin?>" name="dateorigin" class="form-control" placeholder="Introduza a data">
+                                    <input type="date" value="<?= $legs->dateorigin?>" name="dateorigin" class="form-control" placeholder="Introduza a data">
                                     <?= ErrMgr::bind('dateorigin') ?>
                                 </div>
 
                                 <div class="top-margin">
+                                    <label>Hora de Origem <span class="text-danger">*</span></label>
+                                    <input type="time" value="<?= $legs->horaorigin?>" name="horaorigin" class="form-control" placeholder="Introduza a data">
+                                    <?= ErrMgr::bind('horaorigin') ?>
+                                </div>
+
+                                <div class="top-margin">
                                     <label>Data de Chegada <span class="text-danger">*</span></label>
-                                    <input type="text" value="<?= $legs->dateend?>" name="dateend" class="form-control" placeholder="Introduza a data">
+                                    <input type="date" value="<?= $legs->dateend?>" name="dateend" class="form-control" placeholder="Introduza a data">
                                     <?= ErrMgr::bind('dateend') ?>
                                 </div>
+
+                                <div class="top-margin">
+                                    <label>Hora de Chegada <span class="text-danger">*</span></label>
+                                    <input type="time" value="<?= $legs->horaend?>" name="horaend" class="form-control" placeholder="Introduza a data">
+                                    <?= ErrMgr::bind('horaend') ?>
+                                </div>
+
 
                                 <div class="top-margin">
                                     <label>Distancia <span class="text-danger">*</span></label>

@@ -5,8 +5,8 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('gestorvooheader') ?>
-<?php $planelegs = Data::get('planelegs') ?>
-<?php $legs = Data::get('legs') ?>
+<?php $planelegs = Data::get('layoverplanes') ?>
+<?php $legs = Data::get('layover') ?>
 <?php $planes = Data::get('planes') ?>
 <?php ErrMgr::attach($planelegs) ?>
 
@@ -26,7 +26,7 @@ Layout::includeLayout('gestorvooheader') ?>
 
                         <hr>
 
-                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('planelegs/update', $planelegs->id)?>">
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('layoverplanes/update', $planelegs->id)?>">
 
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Plane Leg:<span class="text-danger">*</span></label>

@@ -13,6 +13,7 @@ class FlightAppController extends BaseAuthController implements ResourceControll
     {
         $this->loginFilterbyRole('gestorvoo');
         $flights = Flight::all();
+
         return View::make('flights.index', ['flights' => $flights]);
     }
 

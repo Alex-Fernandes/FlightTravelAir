@@ -6,7 +6,7 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class PlaneLegsAppController extends BaseAuthController implements ResourceControllerInterface
+class LayoverPlanesController extends BaseAuthController implements ResourceControllerInterface
 {
 
 
@@ -14,24 +14,24 @@ class PlaneLegsAppController extends BaseAuthController implements ResourceContr
     {
         $this->loginFilterbyRole('gestorvoo');
         $planes = Plane::all();
-        $planeslegs = Planelegs::all();
-        return View::make('planelegs.index', ['planes' => $planes, 'planelegs' => $planeslegs]);
+        $planeslegs = Layoverplanes::all();
+        return View::make('layoverplanes.index', ['planes' => $planes, 'layoverplanes' => $planeslegs]);
     }
 
     public function create()
     {
         $this->loginFilterbyRole('gestorvoo');
         $planes = Plane::all();
-        $legs = Legs::all();
-        return View::make('planelegs.create', ['planes' => $planes, 'legs' => $legs]);
+        $legs = Layover::all();
+        return View::make('layoverplanes.create', ['planes' => $planes, 'layover' => $legs]);
     }
 
     public function createCustom($legs)
     {
         $this->loginFilterbyRole('gestorvoo');
         $planes = Plane::all();
-        $legs = Legs::all(array('idvoo' => array('role == ?', $legs)));
-        return View::make('planelegs.create', ['planes' => $planes, 'legs' => $legs]);
+        $legs = Layover::all(array('idvoo' => array('role == ?', $legs)));
+        return View::make('layoverplanes.create', ['planes' => $planes, 'layover' => $legs]);
     }
 
     public function store()
@@ -39,40 +39,40 @@ class PlaneLegsAppController extends BaseAuthController implements ResourceContr
         $this->loginFilterbyRole('gestorvoo');
         //create new resource (activerecord/model) instance with data from POST
         //your form name fields must match the ones of the table fields
-        $planeLegs = new Planelegs(Post::getAll());
+        $planeLegs = new Layoverplanes(Post::getAll());
 
         if($planeLegs->is_valid()){
             $planeLegs->save();
-            Redirect::toRoute('planelegs/index');
+            Redirect::toRoute('layoverplanes/index');
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('planelegs/create', ['planelegs' => $planeLegs]);
+            Redirect::flashToRoute('layoverplanes/create', ['layoverplanes' => $planeLegs]);
         }
     }
 
     public function show($id)
     {
         $this->loginFilterbyRole('gestorvoo');
-        $planeLegs = Planelegs::find([$id]);
+        $planeLegs = Layoverplanes::find([$id]);
 
         if (is_null($planeLegs)) {
             //TODO redirect to standard error page
         } else {
-            return View::make('planelegs.show', ['planelegs' => $planeLegs]);
+            return View::make('layoverplanes.show', ['layoverplanes' => $planeLegs]);
         }
     }
 
     public function edit($id)
     {
         $this->loginFilterbyRole('gestorvoo');
-        $planeLegs = Planelegs::find([$id]);
+        $planeLegs = Layoverplanes::find([$id]);
         $planes = Plane::all();
-        $legs = Legs::all();
+        $legs = Layover::all();
 
         if (is_null($planeLegs)) {
             //TODO redirect to standard error page
         } else {
-            return View::make('planelegs.edit', ['planelegs' => $planeLegs, 'planes' => $planes, 'legs' => $legs]);
+            return View::make('layoverplanes.edit', ['layoverplanes' => $planeLegs, 'planes' => $planes, 'layover' => $legs]);
         }
     }
 
@@ -81,23 +81,23 @@ class PlaneLegsAppController extends BaseAuthController implements ResourceContr
         $this->loginFilterbyRole('gestorvoo');
         //find resource (activerecord/model) instance where PK = $id
         //your form name fields must match the ones of the table fields
-        $planeLegs = Planelegs::find([$id]);
+        $planeLegs = Layoverplanes::find([$id]);
         $planeLegs->update_attributes(Post::getAll());
 
         if($planeLegs->is_valid()){
             $planeLegs->save();
-            Redirect::toRoute('planelegs/index');
+            Redirect::toRoute('layoverplanes/index');
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('planelegs/edit', ['planelegs' => $planeLegs]);
+            Redirect::flashToRoute('layoverplanes/edit', ['layoverplanes' => $planeLegs]);
         }
     }
 
     public function destroy($id)
     {
         $this->loginFilterbyRole('gestorvoo');
-        $planeLegs = Planelegs::find([$id]);
+        $planeLegs = Layoverplanes::find([$id]);
         $planeLegs->delete();
-        Redirect::toRoute('planelegs/index');
+        Redirect::toRoute('layoverplanes/index');
     }
 }

@@ -2,7 +2,7 @@
 
 use ActiveRecord\Model;
 
-class Legs extends Model
+class Layover extends Model
 {
     static $validates_presence_of = array(
         array('idvoo', 'message' => 'O Campo tem de ser preenchido!!!'),
@@ -29,6 +29,11 @@ class Legs extends Model
         array('idaeroportoorigem', 'only_integer' => true),
         array('distancia', 'only_integer' => true),
         array('numordem', 'only_integer' => true),
+    );
+
+    static $belongs_to = array(
+        array('airportorigem',  'class_name' => 'Airports', 'foreign_key' => 'idaeroportoorigem'),
+        array('airportdestino',  'class_name' => 'Airports', 'foreign_key' => 'idaeroportodestino'),
     );
 
 }

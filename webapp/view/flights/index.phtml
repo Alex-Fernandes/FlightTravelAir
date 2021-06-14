@@ -13,7 +13,7 @@ Layout::includeLayout('gestorvooheader') ?>
             <li class="active">Flight Index</li>
         </ol>
 
-        <h2 class="text-left top-space">Flight Index</h2>
+        <h2 class="text-left top-space">Flights Index</h2>
         <h2 class="top-space"></h2>
         <div class="row">
             <div class="col-sm-12">
@@ -28,7 +28,7 @@ Layout::includeLayout('gestorvooheader') ?>
                                 <!--<a href="<?=Url::toRoute('flight/show', $flight->id)?>" class="btn btn-info" role="button">Show</a> -->
                                 <a href="<?=Url::toRoute('flights/edit', $flight->id)?>" class="btn btn-info" role="button">Edit</a>
                                 <a href="<?=Url::toRoute('flights/destroy', $flight->id)?>" class="btn btn-warning" role="button">Delete</a>
-                                <a href="<?=Url::toRoute('legs/indexCustom', $flight->id)?>" class="btn btn-info" role="button">Gerir Escalas</a>
+                                <a href="<?=Url::toRoute('layover/index', $flight->id)?>" class="btn btn-info" role="button">Gerir Escalas</a>
 
                             </td>
                         </tr>

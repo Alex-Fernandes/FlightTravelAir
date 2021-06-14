@@ -2,7 +2,7 @@
 
 use ActiveRecord\Model;
 
-class Planelegs extends Model
+class Layoverplanes extends Model
 {
     static $validates_presence_of = array(
         array('idescala', 'message' => 'O Campo tem de ser preenchido!!!'),

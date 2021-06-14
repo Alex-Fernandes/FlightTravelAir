@@ -5,31 +5,28 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class LegsAppController extends BaseAuthController implements ResourceControllerInterface
+class LayoverController extends BaseAuthController
 {
     /**
-     * @return mixed
+     * @return
      */
-    public function index()
+    public function index($id)
     {
         $this->loginFilterbyRole('gestorvoo');
-        $flights = Flight::all();
-        return View::make('flights.index', ['flights' => $flights]);
+
+        $flight = Flight::find([$id]);
+        $aeroproto = Airports::all();
+
+        return View::make('layover.index' , ['flights' => $flight, 'aeroporto' => $aeroproto]);
     }
-    public function indexCustom($id)
-    {
-        $this->loginFilterbyRole('gestorvoo');
-        $legs = Legs::all(array('conditions' => array('idVoo = ?', $id)));
-        $aeroportos = AeroportoAppController::getAeroporto();
-        return View::make('legs.index' , ['legs' => $legs, 'aeroporto' => $aeroportos]);
-    }
+
 
     public function create()
     {
         $this->loginFilterbyRole('gestorvoo');
-        $aeroportos = AeroportoAppController::getAeroporto();
+        $aeroportos = Airports::all();
         $flights = Flight::all();
-        return View::make('legs.create', ['flights' => $flights, 'aeroporto' => $aeroportos]);
+        return View::make('layover.create', ['flights' => $flights, 'aeroporto' => $aeroportos]);
     }
 
 
@@ -38,26 +35,27 @@ class LegsAppController extends BaseAuthController implements ResourceController
         $this->loginFilterbyRole('gestorvoo');
         //create new resource (activerecord/model) instance with data from POST
         //your form name fields must match the ones of the table fields
-        $legs = new Legs(Post::getAll());
+        $legs = new Layover(Post::getAll());
 
         if($legs->is_valid()){
+            $this->index($legs->idvoo);
             $legs->save();
-            Redirect::toRoute('legs/indexCustom/', $legs->idvoo);
+            Redirect::toRoute('layover/index/', $legs->idvoo);
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('legs/create', ['legs' => $legs]);
+            Redirect::flashToRoute('layover/create', ['layover' => $legs]);
         }
     }
 
     public function show($id)
     {
         $this->loginFilterbyRole('gestorvoo');
-        $legs = Legs::find([$id]);
+        $legs = Layover::find([$id]);
 
         if (is_null($legs)) {
             //TODO redirect to standard error page
         } else {
-            return View::make('legs.show', ['legs' => $legs]);
+            return View::make('layover.show', ['layover' => $legs]);
         }
     }
 
@@ -65,14 +63,14 @@ class LegsAppController extends BaseAuthController implements ResourceController
     public function edit($id)
     {
         $this->loginFilterbyRole('gestorvoo');
-        $legs = Legs::find([$id]);
-        $aeroportos = AeroportoAppController::getAeroporto();
+        $legs = Layover::find([$id]);
+        $aeroportos = Airports::all();
         $flights = Flight::all();
 
         if (is_null($legs)) {
             //TODO redirect to standard error page
         } else {
-            return View::make('legs.edit', ['legs' => $legs , 'aeroporto' => $aeroportos, 'flights' => $flights]);
+            return View::make('layover.edit', ['layover' => $legs , 'aeroporto' => $aeroportos, 'flights' => $flights]);
         }
     }
 
@@ -85,15 +83,16 @@ class LegsAppController extends BaseAuthController implements ResourceController
         $this->loginFilterbyRole('gestorvoo');
         //find resource (activerecord/model) instance where PK = $id
         //your form name fields must match the ones of the table fields
-        $legs = Legs::find([$id]);
+        $legs = Layover::find([$id]);
         $legs->update_attributes(Post::getAll());
-        $idvoo = $legs->idvoo;
+
         if($legs->is_valid()){
+            $this->index($legs->idvoo);
             $legs->save();
-            Redirect::toRoute('legs/indexCustom',$idvoo);
+            Redirect::toRoute('layover/index', $legs->idvoo);
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('legs/edit', ['legs' => $legs]);
+            Redirect::flashToRoute('layover/edit', ['layover' => $legs]);
         }
     }
 
@@ -104,10 +103,10 @@ class LegsAppController extends BaseAuthController implements ResourceController
     public function destroy($id)
     {
         $this->loginFilterbyRole('gestorvoo');
-        $legs = Legs::find([$id]);
-        $idvoo = $legs->idvoo;
+        $legs = Layover::find([$id]);
+        $this->index($legs->idvoo);
         $legs->delete();
-        Redirect::toRoute('legs/indexCustom/',$idvoo);
+        Redirect::toRoute('layover/index/');
     }
 
 

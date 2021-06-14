@@ -5,7 +5,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('gestorvooheader') ?>
-<?php $legs = Data::get('legs') ?>
+<?php $legs = Data::get('layover') ?>
 <?php $flights = Data::get('flights') ?>
 <?php $aeroportos = Data::get('aeroporto') ?>
 <?php ErrMgr::attach($legs) ?>
@@ -26,35 +26,22 @@ Layout::includeLayout('gestorvooheader') ?>
 
                         <hr>
 
-                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('legs/update', $legs->id)?>">
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('layover/update', $legs->id)?>">
 
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Voo:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <select type="text" value="<?=$legs->idvoo?>" class="form-control" required name="idvoo">
+                                    <select type="text" value="<?/*=$legs->idvoo*/?>" class="form-control" required name="idvoo">
                                         ///https://stackoverflow.com/questions/3507042/if-block-inside-echo-statement
                                         //Ternary operators
                                         <?php
-                                        foreach ($flights as $flight) {
+                                          foreach ($flights as $flight) {
+                                              \ArmoredCore\WebObjects\Debug::barDump($flight, 'teste');
                                             echo '<option value="'.$flight->id.'" '.(($flight->id==$legs->idvoo)?'selected="selected"':"").'>'.$flight->id.'</option>';
                                         }
                                         ?>
                                     </select>
-                                    <?= ErrMgr::bind('idvoo') ?>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Aeroporto Destino:<span class="text-danger">*</span></label>
-                                <div class="col-sm-6">
-                                    <select name="idaeroportodestino" class="form-control">
-                                        <?php
-                                        foreach ($aeroportos as $aeroporto) {
-                                            echo '<option value="'.$aeroporto->id.'" '.(($aeroporto->id==$legs->idaeroportodestino)?'selected="selected"':"").'>'.$aeroporto->nome.'</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                    <?= ErrMgr::bind('idaeroportodestino') ?>
+                                    <?/*= ErrMgr::bind('idvoo') */?>
                                 </div>
                             </div>
 
@@ -73,18 +60,50 @@ Layout::includeLayout('gestorvooheader') ?>
                             </div>
 
                             <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Aeroporto Destino:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <select name="idaeroportodestino" class="form-control">
+                                        <?php
+                                        foreach ($aeroportos as $aeroporto) {
+                                            echo '<option value="'.$aeroporto->id.'" '.(($aeroporto->id==$legs->idaeroportodestino)?'selected="selected"':"").'>'.$aeroporto->nome.'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <?= ErrMgr::bind('idaeroportodestino') ?>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Data de Origem:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$legs->dateorigin->format('Y-m-d H:m:s')?>" class="form-control" required name="dateorigin">
+                                    <input type="text" value="<?=$legs->dateorigin->format('Y-m-d')?>" class="form-control" required name="dateorigin">
                                     <?= ErrMgr::bind('dateorigin') ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Hora de Origem:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="time" value="<?=$legs->horaorigin?>" class="form-control" required name="dateend">
+                                    <?= ErrMgr::bind('horaorigin') ?>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Data de Chegada:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$legs->dateend->format('Y-m-d H:m:s')?>" class="form-control" required name="dateend">
+                                    <input type="text" value="<?=$legs->dateend->format('Y-m-d')?>" class="form-control" required name="dateend">
                                     <?= ErrMgr::bind('dateend') ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Hora de Chegada:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$legs->horaend?>" class="form-control" required name="dateend">
+                                    <?= ErrMgr::bind('horaend') ?>
                                 </div>
                             </div>
 

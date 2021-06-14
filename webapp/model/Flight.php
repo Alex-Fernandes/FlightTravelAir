@@ -12,5 +12,12 @@ class Flight extends Model
     static $validates_size_of = array(
         array('idAeroporto', 'within' => array(1, 100) , 'too_long' => 'O Campo tem demasiado caracteres!!!'),
         array('precoVenda', 'within' => array(1, 100) , 'too_long' => 'O Campo tem demasiado caracteres!!!'),
-    );*/
+    );
+*/
+
+    static $has_many = array(
+        array('layovers', 'class_name' => 'Layover', 'foreign_key' => 'idVoo')
+    );
+
+
 }

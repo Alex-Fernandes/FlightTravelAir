@@ -16,4 +16,5 @@ class Airports extends Model
         array('cidade', 'within' => array(1, 100) , 'too_long' => 'O Campo tem demasiado caracteres!!!'),
         array('pais', 'within' => array(1, 50) , 'too_long' => 'O Campo tem demasiado caracteres!!!')
     );
+
 }

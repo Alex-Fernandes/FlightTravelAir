@@ -1,0 +1,89 @@
+<?php
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('adminheader') ?>
+<?php $passageiro = Data::get('user');
+ErrMgr::attach($passageiro) ?>
+
+    <!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Edit Profile</h1>
+                </header>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <hr>
+
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('passageiro/update', $passageiro->id)?>">
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Nome:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$passageiro->nome?>" class="form-control" required name="nome" placeholder="Nome">
+                                    <?= ErrMgr::bind('nome') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Morada:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$passageiro->morada?>" class="form-control" required name="morada" placeholder="Morada">
+                                    <?= ErrMgr::bind('morada') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Email:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$passageiro->email?>" class="form-control" required name="email" placeholder="Email">
+                                    <?= ErrMgr::bind('email') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Nif:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$passageiro->nif?>" class="form-control" required name="nif" placeholder="Nif">
+                                    <?= ErrMgr::bind('nif') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Telefone:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$passageiro->telefone?>" class="form-control" required name="telefone" placeholder="Telefone">
+                                    <?= ErrMgr::bind('telefone') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">password:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$passageiro->password?>" class="form-control" required name="password" placeholder="Password">
+                                    <?= ErrMgr::bind('password') ?>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-default" type="submit">Save</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+        </div>
+
+
+
+        </article>
+        <!-- /Article -->
+
+    </div>
+    </div>	<!-- /container -->
+    <br><br><br><br><br><br><br>
+<?php Layout::includeLayout('footer') ?>

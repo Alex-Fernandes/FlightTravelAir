@@ -31,7 +31,7 @@ Layout::includeLayout('gestorvooheader') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Voo:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <select type="text" value="<?/*=$legs->idvoo*/?>" class="form-control" required name="idvoo">
+                                    <select type="text" value="<?=$legs->idvoo?>" class="form-control" required name="idvoo">
                                         ///https://stackoverflow.com/questions/3507042/if-block-inside-echo-statement
                                         //Ternary operators
                                         <?php
@@ -41,7 +41,7 @@ Layout::includeLayout('gestorvooheader') ?>
                                         }
                                         ?>
                                     </select>
-                                    <?/*= ErrMgr::bind('idvoo') */?>
+                                    <?= ErrMgr::bind('idvoo') ?>
                                 </div>
                             </div>
 
@@ -73,8 +73,6 @@ Layout::includeLayout('gestorvooheader') ?>
                                 </div>
                             </div>
 
-
-
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Data de Origem:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -86,7 +84,7 @@ Layout::includeLayout('gestorvooheader') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Hora de Origem:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="time" value="<?=$legs->horaorigin?>" class="form-control" required name="dateend">
+                                    <input type="text" value="<?=$legs->horaorigin?>" class="form-control" required name="horaorigin">
                                     <?= ErrMgr::bind('horaorigin') ?>
                                 </div>
                             </div>
@@ -102,7 +100,7 @@ Layout::includeLayout('gestorvooheader') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Hora de Chegada:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$legs->horaend?>" class="form-control" required name="dateend">
+                                    <input type="text" value="<?=$legs->horaend?>" class="form-control" required name="horaend">
                                     <?= ErrMgr::bind('horaend') ?>
                                 </div>
                             </div>

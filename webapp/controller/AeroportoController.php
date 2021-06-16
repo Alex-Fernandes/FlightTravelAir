@@ -6,7 +6,7 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class AeroportoAppController extends BaseAuthController implements ResourceControllerInterface
+class AeroportoController extends BaseAuthController implements ResourceControllerInterface
 {
     /**
      * Returns index view with all records

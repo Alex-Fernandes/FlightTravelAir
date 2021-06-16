@@ -21,11 +21,11 @@ class LayoverController extends BaseAuthController
     }
 
 
-    public function create()
+    public function create($id)
     {
         $this->loginFilterbyRole('gestorvoo');
         $aeroportos = Airports::all();
-        $flights = Flight::all();
+        $flights = Flight::find([$id]);
         return View::make('layover.create', ['flights' => $flights, 'aeroporto' => $aeroportos]);
     }
 
@@ -43,7 +43,7 @@ class LayoverController extends BaseAuthController
             Redirect::toRoute('layover/index/', $legs->idvoo);
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('layover/create', ['layover' => $legs]);
+            Redirect::flashToRoute('layover/create', ['layover' => $legs],$legs->idvoo);
         }
     }
 

@@ -9,7 +9,9 @@ class Layover extends Model
         array('idaeroportodestino', 'message' => 'O Campo tem de ser preenchido!!!'),
         array('idaeroportoorigem', 'message' => 'O Campo tem de ser preenchido!!!'),
         array('dateorigin', 'message' => 'O Campo tem de ser preenchido!!!'),
+        array('horaorigin', 'message' => 'O Campo tem de ser preenchido!!!'),
         array('dateend', 'message' => 'O Campo tem de ser preenchido!!!'),
+        array('horaend', 'message' => 'O Campo tem de ser preenchido!!!'),
         array('distancia', 'message' => 'O Campo tem de ser preenchido!!!'),
         array('numordem', 'message' => 'O Campo tem de ser preenchido!!!'),
     );

@@ -33,7 +33,7 @@ Router::get('login/logout',	    'LoginController/doLogout');
 Router::get('adminapp/index',      'AdminAppController/index');
 
 //Airports
-Router::resource('aeroporto', 'AeroportoAppController');
+Router::resource('aeroporto', 'AeroportoController');
 //Users
 Router::resource('user', 'UserAppController');
 //Flights
@@ -45,7 +45,7 @@ Router::resource('plane', 'PlaneAppController');
 
 //Layoverplanes
 Router::get('layoverplanes/index',      'LayoverPlanesController/index');
-Router::get('layoverplanes/create',      'LayoverPlanesController/createCustom');
+Router::get('layoverplanes/create',      'LayoverPlanesController/create');
 Router::Post('layoverplanes/store',      'LayoverPlanesController/store');
 Router::get('layoverplanes/edit',      'LayoverPlanesController/edit');
 Router::Post('layoverplanes/update',      'LayoverPlanesController/update');

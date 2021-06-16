@@ -29,9 +29,9 @@ Layout::includeLayout('gestorvooheader') ?>
                                     <label>Voo <span class="text-danger">*</span></label>
                                     <select name="idvoo" class="form-control">
                                         <?php
-                                        foreach ($flights as $flight) {
-                                            echo ' <option value='.$flight->id.'>'.$flight->id.'</option>';
-                                        }
+
+                                        echo ' <option value='.$flights->id.'>'.$flights->id.'</option>';
+
                                         ?>
                                     </select>
                                     <?= ErrMgr::bind('idvoo') ?>
@@ -69,7 +69,7 @@ Layout::includeLayout('gestorvooheader') ?>
 
                                 <div class="top-margin">
                                     <label>Hora de Origem <span class="text-danger">*</span></label>
-                                    <input type="time" value="<?= $legs->horaorigin?>" name="horaorigin" class="form-control" placeholder="Introduza a data">
+                                    <input type="text" value="<?= $legs->horaorigin?>" name="horaorigin" class="form-control">
                                     <?= ErrMgr::bind('horaorigin') ?>
                                 </div>
 
@@ -81,7 +81,7 @@ Layout::includeLayout('gestorvooheader') ?>
 
                                 <div class="top-margin">
                                     <label>Hora de Chegada <span class="text-danger">*</span></label>
-                                    <input type="time" value="<?= $legs->horaend?>" name="horaend" class="form-control" placeholder="Introduza a data">
+                                    <input type="text" value="<?= $legs->horaend?>" name="horaend" class="form-control">
                                     <?= ErrMgr::bind('horaend') ?>
                                 </div>
 

@@ -32,7 +32,7 @@ Layout::includeLayout('gestorvooheader') ?>
                             <td width="500">
                                 <a href="<?=Url::toRoute('layover/edit', $flight->id)?>" class="btn btn-info" role="button">Edit</a>
                                 <a href="<?=Url::toRoute('layover/destroy', $flight->id)?>" class="btn btn-warning" role="button">Delete</a>
-                                <a href="<?=Url::toRoute('layoverplanes/create', $flight->idvoo)?>" class="btn btn-info" role="button">Assign Plane</a>
+                                <a href="<?=Url::toRoute('layoverplanes/create', $flight->id)?>" class="btn btn-info" role="button">Assign Plane</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -45,7 +45,7 @@ Layout::includeLayout('gestorvooheader') ?>
             <div class="col-sm-6">
                 <h3>Nova Escala</h3>
                 <p>
-                    <a href="<?=Url::toRoute('layover/create')?>" class="btn btn-info" role="button">New</a>
+                    <a href="<?=Url::toRoute('layover/create' , $flight->idvoo)?>" class="btn btn-info" role="button">New</a>
                 </p>
             </div>
         </div> <!-- /row -->

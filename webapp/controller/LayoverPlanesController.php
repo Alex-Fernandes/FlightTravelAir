@@ -6,9 +6,8 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class LayoverPlanesController extends BaseAuthController implements ResourceControllerInterface
+class LayoverPlanesController extends BaseAuthController
 {
-
 
     public function index()
     {
@@ -18,20 +17,12 @@ class LayoverPlanesController extends BaseAuthController implements ResourceCont
         return View::make('layoverplanes.index', ['planes' => $planes, 'layoverplanes' => $planeslegs]);
     }
 
-    public function create()
+    public function create($id)
     {
         $this->loginFilterbyRole('gestorvoo');
         $planes = Plane::all();
-        $legs = Layover::all();
-        return View::make('layoverplanes.create', ['planes' => $planes, 'layover' => $legs]);
-    }
-
-    public function createCustom($legs)
-    {
-        $this->loginFilterbyRole('gestorvoo');
-        $planes = Plane::all();
-        $legs = Layover::all(array('idvoo' => array('role == ?', $legs)));
-        return View::make('layoverplanes.create', ['planes' => $planes, 'layover' => $legs]);
+        $layover = Layover::find([$id]);
+        return View::make('layoverplanes.create', ['planes' => $planes, 'layover' => $layover]);
     }
 
     public function store()

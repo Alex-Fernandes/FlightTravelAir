@@ -5,11 +5,9 @@ use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('gestorvooheader') ?>
 <?php $planelegs = Data::get('layoverplanes') ?>
-<?php $legs = Data::get('layover') ?>
+<?php $layover = Data::get('layover') ?>
 <?php $planes = Data::get('planes') ?>
 <?php ErrMgr::attach($planelegs);
-\ArmoredCore\WebObjects\Debug::barDump($legs);
-
 ?>
 
     <!-- container -->
@@ -20,7 +18,7 @@ Layout::includeLayout('gestorvooheader') ?>
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
-                    <h1 class="page-title">New Plane Leg</h1>
+                    <h1 class="page-title">Assign Plane</h1>
                 </header>
 
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -31,11 +29,7 @@ Layout::includeLayout('gestorvooheader') ?>
                                 <div class="top-margin">
                                     <label>Voo <span class="text-danger">*</span></label>
                                     <select name="idescala" class="form-control">
-                                        <?php
-                                        foreach ($legs as $leg) {
-                                            echo ' <option value='.$leg->id.'>'.$leg->id.'</option>';
-                                        }
-                                        ?>
+                                        <option value=<?= $layover->id ?>><?= $layover->id ?></option>
                                     </select>
                                     <?= ErrMgr::bind('idescala') ?>
                                 </div>

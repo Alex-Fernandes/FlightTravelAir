@@ -13,14 +13,13 @@ class FlightAppController extends BaseAuthController implements ResourceControll
     {
         $this->loginFilterbyRole('gestorvoo');
         $flights = Flight::all();
-
         return View::make('flights.index', ['flights' => $flights]);
     }
 
     public function create()
     {
         $this->loginFilterbyRole('gestorvoo');
-        $aeroportos = AeroportoAppController::getAeroporto();
+        $aeroportos = AeroportoController::getAeroporto();
         return View::make('flights.create', ['aeroporto' => $aeroportos]);
     }
 
@@ -64,7 +63,7 @@ class FlightAppController extends BaseAuthController implements ResourceControll
     {
         $this->loginFilterbyRole('gestorvoo');
         $flight = Flight::find([$id]);
-        $aeroportos = AeroportoAppController::getAeroporto();
+        $aeroportos = AeroportoController::getAeroporto();
 
         if (is_null($flight)) {
             //TODO redirect to standard error page

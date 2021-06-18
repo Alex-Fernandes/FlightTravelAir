@@ -37,11 +37,11 @@ Router::resource('aeroporto', 'AeroportoController');
 //Users
 Router::resource('user', 'UserAppController');
 //Flights
-Router::resource('flights', 'FlightAppController');
+Router::resource('flights', 'FlightController');
 //Layover
 Router::resource('layover', 'LayoverController');
 //Plane
-Router::resource('plane', 'PlaneAppController');
+Router::resource('plane', 'PlaneController');
 
 //Layoverplanes
 Router::get('layoverplanes/index',      'LayoverPlanesController/index');

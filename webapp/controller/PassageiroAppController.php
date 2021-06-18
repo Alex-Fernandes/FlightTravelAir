@@ -11,7 +11,8 @@ class PassageiroAppController extends BaseAuthController
     {
         $this->loginFilterbyRole('passageiro');
         $user = User::find([$id]);
-        return View::make('passageiro.index', ['user' => $user]);
+        $layover = Layover::all();
+        return View::make('passageiro.index', ['user' => $user, 'layover' => $layover]);
     }
 
     public function edit($id)

@@ -5,7 +5,7 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class PlaneAppController extends BaseAuthController implements ResourceControllerInterface
+class PlaneController extends BaseAuthController implements ResourceControllerInterface
 {
 
     public function index()

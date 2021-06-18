@@ -6,7 +6,7 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
 
-class FlightAppController extends BaseAuthController implements ResourceControllerInterface
+class FlightController extends BaseAuthController implements ResourceControllerInterface
 {
 
     public function index()

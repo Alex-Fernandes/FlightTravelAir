@@ -45,7 +45,7 @@ class LoginController extends BaseController
                     break;
 
                 case 'passageiro':
-                    Redirect::toRoute('passageiro/index', $login->id);
+                    Redirect::toRoute('passageiro/index');
                     break;
 
                 case 'opcheckin':

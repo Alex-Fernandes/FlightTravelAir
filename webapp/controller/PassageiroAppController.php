@@ -7,20 +7,26 @@ use ArmoredCore\WebObjects\View;
 
 class PassageiroAppController extends BaseAuthController
 {
-    public function index($id)
+
+    public function index()
     {
         $this->loginFilterbyRole('passageiro');
-        $user = User::find([$id]);
+        return View::make('passageiro.start');
+    }
+
+    public function voos(){
+        $this->loginFilterbyRole('passageiro');
+        $user = User::find([$_SESSION['APPuserid']]);
         $layover = Layover::all(array('order' => 'dateorigin asc'));
         return View::make('passageiro.index', ['user' => $user, 'layover' => $layover]);
     }
 
-   /* public function profile($id)
+    public function profile()
     {
         $this->loginFilterbyRole('passageiro');
-        $user = User::find([$id]);
+        $user = User::find([$_SESSION['APPuserid']]);
         return View::make('passageiro.profile', ['user' => $user]);
-    }*/
+    }
 
     public function edit($id)
     {

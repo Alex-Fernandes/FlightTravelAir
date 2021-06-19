@@ -18,76 +18,80 @@ Layout::includeLayout('passageiroheader') ?>
 
                     <div class="top-margin">
                             <div style="display: inline-block" >
-                            <form method="post" action="<?=Url::toRoute('passageiro/selectdropdown')?>">
-                            <label  style ="padding = 15px ">Aeroporto Destino <span class="text-danger">*</span></label>
-                            <select name="idaeroportodestino" class="form-control">
-                                <?php
-                                    foreach ($airports as $airport) {
-                                    echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
-                                }
-                                ?>
-                            </select>
-                                <div class="row">
-                                    <div class="col-lg-4 text-middle">
-                                        <button class="btn btn-action" type="submit">Search</button>
+                                <form method="post" action="<?=Url::toRoute('passageiro/selectdropdowndestino')?>">
+                                    <label  style ="padding = 15px ">Aeroporto Destino <span class="text-danger">*</span></label>
+                                        <select name="iddestino" class="form-control">
+                                            <option disabled selected value> -- Selecione uma Opção -- </option>
+                                            <?php
+                                                foreach ($airports as $airport) {
+                                                    echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
+                                                }
+                                            ?>
+                                        </select>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-4 text-middle">
+                                            <button class="btn btn-action" type="submit">Search</button>
+                                        </div>
                                     </div>
-                                </div>
-                        </form>
+                                </form>
                             </div>
-
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                             <div style="display: inline-block" >
-                            <form method="post" action="<?=Url::toRoute('passageiro/selectdropdown')?>">
-                            <label>Aeroporto Origem <span class="text-danger">*</span></label>
-                            <select name="idaeroportodestino" class="form-control">
-                                <?php
-                                foreach ($airports as $airport) {
-                                    echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
-                                }
-                                ?>
-                            </select>
+                                <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownorigem')?>">
+                                    <label>Aeroporto Origem <span class="text-danger">*</span></label>
+                                        <select name="idorigem" class="form-control">
+                                            <option disabled selected value> -- Selecione uma Opção -- </option>
+                                            <?php
+                                                foreach ($airports as $airport) {
+                                                    echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
+                                                }
+                                            ?>
+                                        </select>
+                                    <br>
+                                        <div class="row">
+                                            <div class="col-lg-4 text-middle">
+                                                <button class="btn btn-action" type="submit">Search</button>
+                                            </div>
+                                        </div>
+                                </form>
+                            </div>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            <div style="display: inline-block" >
+                                <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownpartida')?>">
+                                    <label>Data Partida <span class="text-danger">*</span></label>
+                                    <input id="idpartida" name="idpartida" type="date"  class="form-control">
+                                    <br>
+                                        <div class="row">
+                                            <div class="col-lg-4 text-middle">
+                                                <button class="btn btn-action" type="submit">Search</button>
+                                            </div>
+                                        </div>
+                                </form>
+                            </div>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            <div style="display: inline-block" >
+                                <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownchegada')?>">
+                                    <label>Data Chegada <span class="text-danger">*</span></label>
+                                    <input id="idchegada" name="idchegada" type="date"  class="form-control">
+                                    <br>
+                                        <div class="row">
+                                            <div class="col-lg-4 text-middle">
+                                                <button class="btn btn-action" type="submit">Search</button>
+                                            </div>
+                                        </div>
+                                </form>
+                            </div>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        <div style="display: inline-block" >
+                            <form method="post" action="<?=Url::toRoute('passageiro/voos')?>">
                                 <div class="row">
                                     <div class="col-lg-4 text-middle">
-                                        <button class="btn btn-action" type="submit">Search</button>
+                                        <button class="btn btn-action" type="submit">Clear</button>
                                     </div>
                                 </div>
                             </form>
-                            </div>
-
-                            <div style="display: inline-block" >
-                            <form method="post" action="<?=Url::toRoute('passageiro/selectdropdown')?>">
-                                <label>Aeroporto Origem <span class="text-danger">*</span></label>
-                                <select name="idaeroportodestino" class="form-control">
-                                    <?php
-                                    foreach ($layovers as $layover) {
-                                        echo ' <option value='.$layover->id.'>'.$layover->dateorigin->format('Y-m-d').'</option>';
-                                    }
-                                    ?>
-                                </select>
-                                <div class="row">
-                                    <div class="col-lg-4 text-middle">
-                                        <button class="btn btn-action" type="submit">Search</button>
-                                    </div>
-                                </div>
-                            </form>
-                            </div>
-
-                            <div style="display: inline-block" >
-                            <form method="post" action="<?=Url::toRoute('passageiro/selectdropdown')?>">
-                                <label>Aeroporto Origem <span class="text-danger">*</span></label>
-                                <select name="idaeroportodestino" class="form-control">
-                                    <?php
-                                    foreach ($layovers as $layover) {
-                                        echo ' <option value='.$layover->id.'>'.$layover->dateend->format('Y-m-d').'</option>';
-                                    }
-                                    ?>
-                                </select>
-                                <div class="row">
-                                    <div class="col-lg-4 text-middle">
-                                        <button class="btn btn-action" type="submit">Search</button>
-                                    </div>
-                                </div>
-                            </form>
-                            </div>
+                        </div>
                     </div>
                     <br>
 

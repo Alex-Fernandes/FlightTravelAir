@@ -59,14 +59,40 @@ class PassageiroAppController extends BaseAuthController
         }
     }
 
-    public function selectdropdown(){
+    public function selectdropdowndestino(){
         $this->loginFilterbyRole('passageiro');
-        $selection = Post::getAll();
+        $selection = Post::get('iddestino');
         $date = date('Y-m-d', time());
         $airport = Airports::all();
         $layover = Layover::all(array('conditions' => array('idaeroportodestino = ? and dateend >= ?', $selection, $date) ,'order' => 'dateorigin asc'));
         return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
+    }
 
+    public function selectdropdownorigem(){
+        $this->loginFilterbyRole('passageiro');
+        $selection = Post::get('idorigem');
+        $date = date('Y-m-d', time());
+        $airport = Airports::all();
+        $layover = Layover::all(array('conditions' => array('idaeroportoorigem = ? and dateend >= ?', $selection, $date) ,'order' => 'dateorigin asc'));
+        return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
+    }
+
+    public function selectdropdownpartida(){
+        $this->loginFilterbyRole('passageiro');
+        $selection = Post::get('idpartida');
+        $date = date('Y-m-d', time());
+        $airport = Airports::all();
+        $layover = Layover::all(array('conditions' => array('dateorigin = ? and dateend >= ?', $selection, $date) ,'order' => 'dateorigin asc'));
+        return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
+    }
+
+    public function selectdropdownchegada(){
+        $this->loginFilterbyRole('passageiro');
+        $selection = Post::get('idchegada');
+        $date = date('Y-m-d', time());
+        $airport = Airports::all();
+        $layover = Layover::all(array('conditions' => array('dateend = ? and dateend >= ?', $selection, $date) ,'order' => 'dateorigin asc'));
+        return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
     }
 
 }

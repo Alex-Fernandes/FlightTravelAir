@@ -1,9 +1,9 @@
 <?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('passageiroheader') ?>
-<?php $passageiros = Data::get('user'); ?>
 <?php $layovers = Data::get('layover'); ?>
 
     <!-- container -->
@@ -20,6 +20,24 @@ Layout::includeLayout('passageiroheader') ?>
             <div class="col-sm-12">
 
                 <table class="table table-striped"><thead><th><h3>Voo</h3></th>
+
+                    <div class="top-margin">
+                        <label>Aeroporto Destino <span class="text-danger">*</span></label>
+                        <select name="idaeroportodestino" class="form-control">
+                            <?php
+                            foreach ($layovers as $layover) {
+                                echo ' <option value='.$layover->id.'>'.$layover->idaeroportodestino.'</option>';
+                            }
+                            $layover = Layover::find_by_idaeroportoorigem($layover->id);
+                            ?>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 text-middle">
+                            <button class="btn btn-action" type="submit">Search</button>
+                        </div>
+                    </div>
+
                     <th><h3>Aeroporto Origem</h3></th><th><h3>Aeroporto Destino</h3></th><th><h3>Data Partida</h3></th></th><th><h3>Hora Partida</h3></th><th><h3>Data Chegada</h3>
                     </th><th><h3>Hora Chegada</h3></th></th><th><h3>Distancia</h3></th></th><th><h3>Num Ordem</h3></th></thead>
 
@@ -29,35 +47,14 @@ Layout::includeLayout('passageiroheader') ?>
                         <td><?=$layover->idvoo?></td>
                         <td><?=$layover->idaeroportoorigem?></td>
                         <td><?=$layover->idaeroportodestino?></td>
-                        <td><?=$layover->dateorigin?></td>
-                        <td><?=$layover->dateend?></td>
+                        <td><?=$layover->dateorigin->format('Y-m-d')?></td>
+                        <td><?=$layover->dateend->format('Y-m-d')?></td>
                         <td><?=$layover->horaorigin?></td>
                         <td><?=$layover->horaend?></td>
                         <td><?=$layover->distancia?></td>
                         <td><?=$layover->numordem?></td>
                     </tr>
                     <?php } ?>
-                    </tbody>
-
-                </table>
-
-                <table class="table table-striped"><thead><th><h3>Nome</h3></th>
-                    <th><h3>Morada</h3></th><th><h3>Email</h3></th><th><h3>Nif</h3></th><th><h3>Telefone</h3>
-                    </th><th><h3>Password</h3></th></thead>
-                    <tbody>
-
-                        <tr>
-                            <td><?=$passageiros->nome?></td>
-                            <td><?=$passageiros->morada?></td>
-                            <td><?=$passageiros->email?></td>
-                            <td><?=$passageiros->nif?></td>
-                            <td><?=$passageiros->telefone?></td>
-                            <td><?=$passageiros->password?></td>
-                            <td>
-                                <a href="<?=Url::toRoute('passageiro/edit', $passageiros->id)?>" class="btn btn-info" role="button">Edit</a>
-                            </td>
-                        </tr>
-
                     </tbody>
 
                 </table>

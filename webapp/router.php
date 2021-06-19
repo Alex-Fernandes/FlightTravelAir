@@ -53,7 +53,6 @@ Router::Post('layoverplanes/destroy',      'LayoverPlanesController/destroy');
 
 /***** PassageiroAPP Controller *****/
 Router::resource('passageiro', 'PassageiroAppController');
-
 /***** OpCheckInAPP Controller *****/
 Router::get('opcheckinapp/index', 'OPCheckInAppController/index');
 

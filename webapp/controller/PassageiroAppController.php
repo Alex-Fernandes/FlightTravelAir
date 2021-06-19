@@ -18,7 +18,7 @@ class PassageiroAppController extends BaseAuthController
         $this->loginFilterbyRole('passageiro');
         $user = User::find([$_SESSION['APPuserid']]);
         $airport = Airports::all();
-        $date = date('Y-m-d', time());;
+        $date = date('Y-m-d', time());
         $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
         return View::make('passageiro.voos', ['user' => $user, 'layover' => $layover, 'airport' => $airport]);
     }
@@ -62,9 +62,9 @@ class PassageiroAppController extends BaseAuthController
     public function selectdropdown(){
         $this->loginFilterbyRole('passageiro');
         $selection = Post::getAll();
-
+        $date = date('Y-m-d', time());
         $airport = Airports::all();
-        $layover = Layover::all(array('conditions' => array('idaeroportodestino = ?', $selection) ,'order' => 'dateorigin asc'));
+        $layover = Layover::all(array('conditions' => array('idaeroportodestino = ? and dateend >= ?', $selection, $date) ,'order' => 'dateorigin asc'));
         return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
 
     }

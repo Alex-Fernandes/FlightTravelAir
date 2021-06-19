@@ -50,8 +50,8 @@ Layout::includeLayout('passageiroheader') ?>
                     <?php foreach ($layovers as $layover) { ?>
                     <tr>
                         <td><?=$layover->idvoo?></td>
-                        <td><?=$layover->idaeroportoorigem?></td>
-                        <td><?=$layover->idaeroportodestino?></td>
+                        <td><?=$layover->airportorigem->nome?></td>
+                        <td><?=$layover->airportdestino->nome?></td>
                         <td><?=$layover->dateorigin->format('Y-m-d')?></td>
                         <td><?=$layover->horaorigin?></td>
                         <td><?=$layover->dateend->format('Y-m-d')?></td>

@@ -17,8 +17,10 @@ class PassageiroAppController extends BaseAuthController
     public function voos(){
         $this->loginFilterbyRole('passageiro');
         $user = User::find([$_SESSION['APPuserid']]);
-        $layover = Layover::all(array('order' => 'dateorigin asc'));
-        return View::make('passageiro.index', ['user' => $user, 'layover' => $layover]);
+        $airport = Airports::all();
+        $date = date('Y-m-d', time());;
+        $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
+        return View::make('passageiro.voos', ['user' => $user, 'layover' => $layover, 'airport' => $airport]);
     }
 
     public function profile()
@@ -55,6 +57,16 @@ class PassageiroAppController extends BaseAuthController
             //redirect to form with data and errors
             Redirect::flashToRoute('passageiro/edit', ['user' => $user], $user->id);
         }
+    }
+
+    public function selectdropdown(){
+        $this->loginFilterbyRole('passageiro');
+        $selection = Post::getAll();
+
+        $airport = Airports::all();
+        $layover = Layover::all(array('conditions' => array('idaeroportodestino = ?', $selection) ,'order' => 'dateorigin asc'));
+        return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
+
     }
 
 }

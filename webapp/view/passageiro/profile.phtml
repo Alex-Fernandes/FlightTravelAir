@@ -8,32 +8,27 @@ Layout::includeLayout('passageiroheader') ?>
     <!-- container -->
     <div class="container">
 
-        <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li class="active">Passageiro Index</li>
-        </ol>
-
         <h2 class="text-left top-space">Passageiro</h2>
         <h2 class="top-space"></h2>
-        <div class="row">
+
+<!--        <div class="row">
             <div class="col-sm-12">
 
                 <table class="table table-striped"><thead><th><h3>Nome</h3></th>
                     <th><h3>Morada</h3></th><th><h3>Email</h3></th><th><h3>Nif</h3></th><th><h3>Telefone</h3>
                     </th><th><h3>Password</h3></th></thead>
                     <tbody>
-
-                        <tr>
-                            <td><?=$passageiros->nome?></td>
-                            <td><?=$passageiros->morada?></td>
-                            <td><?=$passageiros->email?></td>
-                            <td><?=$passageiros->nif?></td>
-                            <td><?=$passageiros->telefone?></td>
-                            <td><?=$passageiros->password?></td>
-                            <td>
-                                <a href="<?=Url::toRoute('passageiro/edit', $passageiros->id)?>" class="btn btn-info" role="button">Edit</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><?/*=$passageiros->nome*/?></td>
+                        <td><?/*=$passageiros->morada*/?></td>
+                        <td><?/*=$passageiros->email*/?></td>
+                        <td><?/*=$passageiros->nif*/?></td>
+                        <td><?/*=$passageiros->telefone*/?></td>
+                        <td><?/*=$passageiros->password*/?></td>
+                        <td>
+                            <a href="<?/*=Url::toRoute('passageiro/edit', $passageiros->id)*/?>" class="btn btn-info" role="button">Edit</a>
+                        </td>
+                    </tr>
 
                     </tbody>
 
@@ -41,6 +36,55 @@ Layout::includeLayout('passageiroheader') ?>
 
             </div>
         </div> <!-- /row -->
+
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form method="post" action="<?=Url::toRoute('passageiro/edit', $passageiros->id)?>">
+                        <div class="top-margin">
+                            <label>Nome <span class="text-danger">*</span></label>
+                            <input readonly="true" type="text" value="<?=$passageiros->nome?>" name="nome" class="form-control">
+                        </div>
+
+                        <div class="top-margin">
+                            <label>Morada <span class="text-danger">*</span></label>
+                            <input readonly="true" type="text" value="<?=$passageiros->morada?>" name="morada" class="form-control">
+                        </div>
+
+                        <div class="top-margin">
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input readonly="true" type="text" value="<?=$passageiros->email?>" name="email" class="form-control">
+                        </div>
+
+                        <div class="top-margin">
+                            <label>Nif <span class="text-danger">*</span></label>
+                            <input readonly="true" type="text" value="<?=$passageiros->nif?>" name="nif" class="form-control">
+                        </div>
+
+                        <div class="top-margin">
+                            <label>Telefone <span class="text-danger">*</span></label>
+                            <input readonly="true" type="text" value="<?=$passageiros->telefone?>" name="telefone" class="form-control">
+                        </div>
+
+                        <div class="top-margin">
+                            <label>Username <span class="text-danger">*</span></label>
+                            <input readonly="true" type="text" value="<?=$passageiros->username?>" name="username" class="form-control">
+                        </div>
+
+                        <div class="top-margin">
+                            <label>Password <span class="text-danger">*</span></label>
+                            <input readonly="true" type="text" value="<?=$passageiros->password?>" name="password" class="form-control">
+                        </div>
+
+                        <br>
+                        <div class="col-lg-4 text-right">
+                            <button class="btn btn-action" type="submit">Alterar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
     </div>	<!-- /container -->
 <?php Layout::includeLayout('footer')?>

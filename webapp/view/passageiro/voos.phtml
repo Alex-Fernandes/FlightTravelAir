@@ -21,7 +21,7 @@ Layout::includeLayout('passageiroheader') ?>
                                 <form method="post" action="<?=Url::toRoute('passageiro/selectdropdowndestino')?>">
                                     <label  style ="padding = 15px ">Aeroporto Destino <span class="text-danger">*</span></label>
                                         <select name="iddestino" class="form-control">
-                                            <option disabled selected value> -- Selecione uma Opção -- </option>
+                                            <option selected value="0"> -- Selecione uma Opção -- </option>
                                             <?php
                                                 foreach ($airports as $airport) {
                                                     echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
@@ -41,7 +41,7 @@ Layout::includeLayout('passageiroheader') ?>
                                 <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownorigem')?>">
                                     <label>Aeroporto Origem <span class="text-danger">*</span></label>
                                         <select name="idorigem" class="form-control">
-                                            <option disabled selected value> -- Selecione uma Opção -- </option>
+                                            <option selected value="0"> -- Selecione uma Opção -- </option>
                                             <?php
                                                 foreach ($airports as $airport) {
                                                     echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
@@ -58,30 +58,6 @@ Layout::includeLayout('passageiroheader') ?>
                             </div>
                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                             <div style="display: inline-block" >
-                                <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownpartida')?>">
-                                    <label>Data Partida <span class="text-danger">*</span></label>
-                                    <input id="idpartida" name="idpartida" type="date"  class="form-control">
-                                    <br>
-                                        <div class="row">
-                                            <div class="col-lg-4 text-middle">
-                                                <button class="btn btn-action" type="submit">Search</button>
-                                            </div>
-                                        </div>
-                                </form>
-                            </div>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <div style="display: inline-block" >
-                                <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownchegada')?>">
-                                    <label>Data Chegada <span class="text-danger">*</span></label>
-                                    <input id="idchegada" name="idchegada" type="date"  class="form-control">
-                                    <br>
-                                        <div class="row">
-                                            <div class="col-lg-4 text-middle">
-                                                <button class="btn btn-action" type="submit">Search</button>
-                                            </div>
-                                        </div>
-                                </form>
-                            </div>
                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                         <div style="display: inline-block" >
                             <form method="post" action="<?=Url::toRoute('passageiro/voos')?>">
@@ -118,6 +94,12 @@ Layout::includeLayout('passageiroheader') ?>
 
                 </table>
 
+            </div>
+            <div class="col-sm-6">
+                <br>
+                <p>
+                    <a href="<?=Url::toRoute('passageiro/bilhete')?>" class="btn btn-info" role="button">Simulamento de uma Passagem</a>
+                </p>
             </div>
         </div> <!-- /row -->
 

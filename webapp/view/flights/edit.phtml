@@ -27,16 +27,29 @@ Layout::includeLayout('gestorvooheader') ?>
 
                         <form class="form-horizontal" method="post" action="<?=Url::toRoute('flights/update', $flight->id)?>">
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Aeroporto:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Aeroporto Origem:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <select name="idaeroporto" class="form-control" required name="idaeroporto">
+                                    <select name="idaeroportoorigem" class="form-control" required name="idaeroportoorigem">
                                         <?php
                                         foreach ($aeroportos as $aeroporto) {
-                                            echo '<option value="'.$aeroporto->id.'" '.(($aeroporto->id==$flight->idaeroporto)?'selected="selected"':"").'>'.$aeroporto->nome.'</option>';
+                                            echo '<option value="'.$aeroporto->id.'" '.(($aeroporto->id==$flight->idaeroportoorigem)?'selected="selected"':"").'>'.$aeroporto->nome.'</option>';
                                         }
                                         ?>
                                     </select>
-                                    <?= ErrMgr::bind('idaeroporto') ?>
+                                    <?= ErrMgr::bind('idaeroportoorigem') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Aeroporto Destino:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <select name="idaeroportodestino" class="form-control" required name="idaeroportodestino">
+                                        <?php
+                                        foreach ($aeroportos as $aeroporto) {
+                                            echo '<option value="'.$aeroporto->id.'" '.(($aeroporto->id==$flight->idaeroportodestino)?'selected="selected"':"").'>'.$aeroporto->nome.'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <?= ErrMgr::bind('idaeroportodestino') ?>
                                 </div>
                             </div>
                             <div class="form-group">

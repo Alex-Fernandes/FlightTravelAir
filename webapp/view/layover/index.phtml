@@ -10,12 +10,11 @@ Layout::includeLayout('gestorvooheader') ?>
     <div class="container">
 
         <?php
-            foreach ($aeroportos as $aeroporto){
-                if($aeroporto->id == $flights->idaeroporto) {
-                    echo ' <h2 class="text-left top-space"> Voos de ' .$aeroporto->nome. '</h2>';
-                }
-            }
+
+        echo ' <h2 class="text-left top-space"> Voos de ' .$flights->airportorigem->nome. ' para '.$flights->airportdestino->nome.'</h2>';
+
         ?>
+
         <h2 class="top-space"></h2>
         <div class="row">
             <div class="col-sm-120">
@@ -45,7 +44,7 @@ Layout::includeLayout('gestorvooheader') ?>
             <div class="col-sm-6">
                 <h3>Nova Escala</h3>
                 <p>
-                    <a href="<?=Url::toRoute('layover/create' , $flight->idvoo)?>" class="btn btn-info" role="button">New</a>
+                    <a href="<?=Url::toRoute('layover/create' , $flights->id)?>" class="btn btn-info" role="button">New</a>
                 </p>
             </div>
         </div> <!-- /row -->

@@ -49,7 +49,7 @@ class LoginController extends BaseController
                     break;
 
                 case 'opcheckin':
-                    Redirect::toRoute('opcheckinapp/index');
+                    Redirect::toRoute('opcheckin/index');
                     break;
 
                 case 'gestorvoo':

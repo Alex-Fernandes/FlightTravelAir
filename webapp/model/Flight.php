@@ -19,5 +19,9 @@ class Flight extends Model
         array('layovers', 'class_name' => 'Layover', 'foreign_key' => 'idVoo')
     );
 
+    static $belongs_to = array(
+        array('airportorigem',  'class_name' => 'Airports', 'foreign_key' => 'idaeroportoorigem'),
+        array('airportdestino',  'class_name' => 'Airports', 'foreign_key' => 'idaeroportodestino'),
+    );
 
 }

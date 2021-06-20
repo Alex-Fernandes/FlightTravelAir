@@ -26,14 +26,25 @@ Layout::includeLayout('gestorvooheader') ?>
                             <form method="post" action="<?=Url::toRoute('flights/store')?>">
                                 <div class="top-margin">
                                     <label>Aeroporto <span class="text-danger">*</span></label>
-                                    <select name="idaeroporto" class="form-control">
+                                    <select name="idaeroportoorigem" class="form-control">
                                         <?php
                                             foreach ($aeroportos as $aeroporto) {
                                                 echo ' <option value='.$aeroporto->id.'>'.$aeroporto->nome.'</option>';
                                             }
                                         ?>
                                     </select>
-                                    <?= ErrMgr::bind('idAeroporto') ?>
+                                    <?= ErrMgr::bind('idaeroportoorigem') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Aeroporto <span class="text-danger">*</span></label>
+                                    <select name="idaeroportodestino" class="form-control">
+                                        <?php
+                                        foreach ($aeroportos as $aeroporto) {
+                                            echo ' <option value='.$aeroporto->id.'>'.$aeroporto->nome.'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <?= ErrMgr::bind('idaeroportodestino') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Preco Venda <span class="text-danger">*</span></label>

@@ -9,9 +9,9 @@ class FlightSalesController extends BaseAuthController implements ResourceContro
 {
     public function index()
     {
-        $this->loginFilterbyRole('passageiro');
-        $flighsales = FlightSales::all();
-        return View::make('flightsales.index', ['flightsales' => $flighsales]);
+        $this->loginFilterbyRole('opcheckin');
+        $flightsales = Flightsales::all();
+        return View::make('opcheckin.checkin', ['flightsales' => $flightsales]);
     }
 
 
@@ -27,13 +27,13 @@ class FlightSalesController extends BaseAuthController implements ResourceContro
 
     public function show($id)
     {
-        $this->loginFilterbyRole('passageiro');
-        $flighsales = FlightSales::find([$id]);
+        $this->loginFilterbyRole('opcheckin');
+        $flightsales = Flightsales::find([$id]);
 
-        if (is_null($flighsales)) {
+        if (is_null($flightsales)) {
 
         } else {
-            return View::make('flightsales.show', ['flightsales' => $flighsales]);
+            return View::make('flightsales.show', ['flightsales' => $flightsales]);
         }
     }
 

@@ -7,7 +7,6 @@ class Flightsales extends Model
     static $validates_presence_of = array(
         array('iduser', 'message' => 'O Campo tem de ser preenchido!!!'),
         array('idvooida', 'message' => 'O Campo tem de ser preenchido!!!'),
-        array('idvoovolta', 'message' => 'O Campo tem de ser preenchido!!!'),
         array('precopago', 'message' => 'O Campo tem de ser preenchido!!!')
     );
 

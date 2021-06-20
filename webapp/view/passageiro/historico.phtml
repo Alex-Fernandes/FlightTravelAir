@@ -3,7 +3,9 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('passageiroheader') ?>
-<?php $flightsales = Data::get('flightsales');?>
+<?php $flightsales = Data::get('flightsales');
+
+?>
 
     <!-- container -->
     <div class="container">
@@ -25,9 +27,7 @@ Layout::includeLayout('passageiroheader') ?>
                              <!--   <a href="<?/*=Url::toRoute('aeroporto/edit', $aeroporto->id)*/?>" class="btn btn-info" role="button">Edit</a>
                                 <a href="<?/*=Url::toRoute('aeroporto/destroy', $aeroporto->id)*/?>" class="btn btn-warning" role="button">Delete</a>
                            --> </td>
-                            <?php
-                            \ArmoredCore\WebObjects\Debug::barDump($flightsale->flightsaleida->airportorigem->nome, 'hi'); ?>
-                        </tr>
+                            </tr>
                     <?php }?>
 
                     </tbody>

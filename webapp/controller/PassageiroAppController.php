@@ -45,14 +45,27 @@ class PassageiroAppController extends BaseAuthController
         $this->loginFilterbyRole('passageiro');
         //create new resource (activerecord/model) instance with data from POST
         //your form name fields must match the ones of the table fields
+        $airport = Airports::all();
+        $date = date('Y-m-d', time());
+        $user = User::find([$_SESSION['APPuserid']]);
+
         $flightsales = new Flightsales(Post::getAll());
         $flightsales->iduser = $id;
         $date = date('Y-m-d H:m:s', time());
         $flightsales->datacompra = $date;
 
+        if($flightsales->idvooida == 3){
+            $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
+            Redirect::flashToRoute('passageiro/bilhete', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
+        }
+
+        if ($flightsales->idvoovolta == 0){
+            $flightsales->idvoovolta = 3;
+        }
+
         $ida = $this->sendPriceBack($flightsales->idvooida);
         if($flightsales->idvoovolta == 0){
-            $volta = 0;
+            $volta = null;
         }else{
             $volta = $this->sendPriceBack($flightsales->idvoovolta);
         }
@@ -61,14 +74,11 @@ class PassageiroAppController extends BaseAuthController
 
         if($flightsales->is_valid()){
             $flightsales->save();
+
             Redirect::toRoute('passageiro/voos');
         } else {
             //redirect to form with data and errors
-            $airport = Airports::all();
-            $date = date('Y-m-d', time());
-            $user = User::find([$_SESSION['APPuserid']]);
             $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
-
             Redirect::flashToRoute('passageiro/bilhete', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
         }
     }
@@ -170,7 +180,6 @@ class PassageiroAppController extends BaseAuthController
         $this->loginFilterbyRole('passageiro');
         $user = User::find([$_SESSION['APPuserid']]);
         $flightsales = Flightsales::all(array('conditions' => array('iduser = ?', $user->id)));
-        Debug::barDump($flightsales);
         return View::make('passageiro.historico', ['flightsales' => $flightsales]);
     }
 

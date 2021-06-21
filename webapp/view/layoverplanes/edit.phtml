@@ -5,10 +5,10 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('gestorvooheader') ?>
-<?php $planelegs = Data::get('layoverplanes') ?>
-<?php $legs = Data::get('layover') ?>
+<?php $layoverplanet = Data::get('layoverplanes') ?>
+<?php $layovers = Data::get('layover') ?>
 <?php $planes = Data::get('planes') ?>
-<?php ErrMgr::attach($planelegs) ?>
+<?php ErrMgr::attach($layoverplanet) ?>
 
     <!-- container -->
     <div class="container">
@@ -26,17 +26,21 @@ Layout::includeLayout('gestorvooheader') ?>
 
                         <hr>
 
-                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('layoverplanes/update', $planelegs->id)?>">
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('layoverplanes/update', $layoverplanet->id)?>">
 
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Plane Leg:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <select type="text" value="<?=$legs->idescala?>" class="form-control" required name="idescala">
+                                    <select type="text" value="<?=$layoverplanet->idescala?>" class="form-control" required name="idescala">
                                         ///https://stackoverflow.com/questions/3507042/if-block-inside-echo-statement
                                         //Ternary operators
                                         <?php
-                                        foreach ($legs as $leg) {
-                                            echo ' <option value='.$leg->id.'>'.$leg->id.'</option>';                                        }
+
+                                        foreach ($layovers as $layover) {
+                                            if ($layoverplanet->idescala == $layover->id){
+                                            echo ' <option value='.$layover->id.'>'.$layoverplanet->idescala.'</option>';
+                                            }
+                                        }
                                         ?>
                                     </select>
                                     <?= ErrMgr::bind('idescala') ?>
@@ -49,7 +53,7 @@ Layout::includeLayout('gestorvooheader') ?>
                                     <select name="idaviao" class="form-control">
                                         <?php
                                         foreach ($planes as $plane) {
-                                            echo ' <option value='.$plane->id.'>'.$plane->id.'</option>';                                         }
+                                            echo ' <option value='.$plane->id.'>'.$plane->referencia.'</option>';                                         }
                                         ?>
                                     </select>
                                    <?= ErrMgr::bind('idaeroportodestino') ?>
@@ -59,7 +63,7 @@ Layout::includeLayout('gestorvooheader') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Numero Passageiros:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$planelegs->numpassageiros?>" class="form-control" required name="numpassageiros">
+                                    <input type="text" value="<?=$layoverplanet->numpassageiros?>" class="form-control" required name="numpassageiros">
                                     <?= ErrMgr::bind('numpassageiros') ?>
                                 </div>
                             </div>
@@ -67,7 +71,7 @@ Layout::includeLayout('gestorvooheader') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Numero Bilhetes Vendidos:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$planelegs->numbilhetesvendidos?>" class="form-control" required name="numbilhetesvendidos">
+                                    <input type="text" value="<?=$layoverplanet->numbilhetesvendidos?>" class="form-control" required name="numbilhetesvendidos">
                                     <?= ErrMgr::bind('numbilhetesvendidos') ?>
                                 </div>
                             </div>

@@ -35,7 +35,6 @@ Layout::includeLayout('gestorvooheader') ?>
                             <td><?=$planeleg->numbilhetesvendidos?></td>
                             <td width="500">
                                 <a href="<?=Url::toRoute('layoverplanes/edit', $planeleg->id)?>" class="btn btn-info" role="button">Edit</a>
-                                <a href="<?=Url::toRoute('layoverplanes/destroy', $planeleg->id)?>" class="btn btn-warning" role="button">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

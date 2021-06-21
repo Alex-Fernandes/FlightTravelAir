@@ -51,7 +51,7 @@ class UserAppController extends BaseAuthController implements ResourceController
         if (is_null($user)) {
             //TODO redirect to standard error page
         } else {
-            return View::make('user/edit', ['user' => $user]);
+          return View::make('user/edit', ['user' => $user]);
         }
     }
 

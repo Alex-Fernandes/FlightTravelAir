@@ -30,14 +30,14 @@ class PassageiroAppController extends BaseAuthController
         return View::make('passageiro.profile', ['user' => $user]);
     }
 
-    public function bilhete(){
+    public function compra(){
         $this->loginFilterbyRole('passageiro');
         $airport = Airports::all(array('conditions' => array('id != ?', 7)));
         $flights = Flight::all(array('conditions' => array('id != ?', 3)));
         $user = User::find([$_SESSION['APPuserid']]);
         $date = date('Y-m-d', time());
         $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
-        return View::make('passageiro.bilhete', ['user' => $user,'layover' => $layover, 'airport' => $airport, 'flights' => $flights]);
+        return View::make('passageiro.compra', ['user' => $user,'layover' => $layover, 'airport' => $airport, 'flights' => $flights]);
     }
 
     public function storeflightsale($id)
@@ -58,10 +58,9 @@ class PassageiroAppController extends BaseAuthController
             $flightsales->idvoovolta = 3;
         }
 
-
         if(is_null($flightsales->idvooida) == true){
             $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
-            Redirect::flashToRoute('passageiro/bilhete', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
+            Redirect::flashToRoute('passageiro/compra', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
         }
         else{
             $ida = $this->sendPriceBack($flightsales->idvooida);
@@ -76,13 +75,14 @@ class PassageiroAppController extends BaseAuthController
             if($flightsales->is_valid()){
                 $flightsales->save();
 
-                Redirect::toRoute('passageiro/voos');
+                Redirect::toRoute('passageiro/bilhete', $flightsales->id);
             } else {
                 //redirect to form with data and errors
                 $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
-                Redirect::flashToRoute('passageiro/bilhete', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
+                Redirect::flashToRoute('passageiro/compra', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
             }
         }
+
     }
 
     public function sendPriceBack($id){
@@ -133,6 +133,7 @@ class PassageiroAppController extends BaseAuthController
         }
         return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
     }
+
     //dropdown para os voos
     public function selectdropdownorigem(){
         $this->loginFilterbyRole('passageiro');
@@ -154,14 +155,18 @@ class PassageiroAppController extends BaseAuthController
         $date = date('Y-m-d', time());
         $airport = Airports::all();
         $flights = Flight::all();
+        $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
+
         $user = User::find([$_SESSION['APPuserid']]);
         if($origem == 0){
+            return View::make('passageiro.compra', ['user' => $user,'layover' => $layover, 'airport' => $airport , 'flights' => $flights]);
         }
         else{
             $layover = Layover::all(array('conditions' => array('idaeroportoorigem = ? and idaeroportodestino >= ?', $origem, $destino) ,'order' => 'dateorigin asc'));
         }
-        return View::make('passageiro.bilhete', ['user' => $user,'layover' => $layover, 'airport' => $airport , 'flights' => $flights]);
+        return View::make('passageiro.compra', ['user' => $user,'layover' => $layover, 'airport' => $airport , 'flights' => $flights]);
     }
+
     //dropdown para a compra
     public function selectdropdowntime(){
         $this->loginFilterbyRole('passageiro');
@@ -176,7 +181,7 @@ class PassageiroAppController extends BaseAuthController
         }else{
             $layover = Layover::all(array('conditions' => array('dateorigin = ? and dateend >= ?', $partida, $chegada) ,'order' => 'dateorigin asc'));
         }
-        return View::make('passageiro.bilhete',  ['user' => $user,'layover' => $layover, 'airport' => $airport , 'flights' => $flights]);
+        return View::make('passageiro.compra',  ['user' => $user,'layover' => $layover, 'airport' => $airport , 'flights' => $flights]);
     }
 
     public function historicoindex(){
@@ -184,6 +189,14 @@ class PassageiroAppController extends BaseAuthController
         $user = User::find([$_SESSION['APPuserid']]);
         $flightsales = Flightsales::all(array('conditions' => array('iduser = ?', $user->id)));
         return View::make('passageiro.historico', ['flightsales' => $flightsales]);
+    }
+
+    public function bilhete($id){
+        $this->loginFilterbyRole('passageiro');
+        $flightsales = Flightsales::find([$id]);
+        $flightsida = Flight::find([$flightsales->idvooida]);
+        $flightsvolta = Flight::find([$flightsales->idvoovolta]);
+        return View::make('passageiro.bilhete',  ['flightsida' => $flightsida, 'flightsvolta' => $flightsvolta, 'flightsales' => $flightsales]);
     }
 
 }

@@ -2,37 +2,29 @@
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('adminheader') ?>
+Layout::includeLayout('opcheckinheader') ?>
 <?php $flightsales = Data::get('flightsales');
+$flights = Data::get('flights');
 ?>
-
 
     <!-- container -->
     <div class="container">
 
-        <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li class="active">Operador de Checkin Index</li>
-        </ol>
-        <h2 class="text-left top-space">Operador de Checkin</h2>
+        <?php
+        echo ' <h2 class="text-left top-space"> Voo de ' .$flights->airportorigem->nome. ' - '.$flights->airportdestino->nome.'</h2>';
+        ?>
         <h2 class="top-space"></h2>
         <div class="row">
             <div class="col-sm-12">
-                <table class="table table-striped"><thead><th><h3>User</h3></th><th><h3>Voo Ida</h3></th>
-                    <th><h3>Voo Volta</h3></th><th><h3>Preco Pago</h3></th><th><h3>Data Compra</h3></th><th><h3>Registo Checkin</h3></th></thead>
+                <table class="table table-striped"><thead><th><h3>User</h3></th><th><h3>Preco Pago</h3></th><th><h3>Data Compra</h3></th></thead>
                     <tbody>
                     <?php foreach ($flightsales as $flightsale) { ?>
                         <tr>
-                            <td><?=$flightsale->iduser?></td>
-                            <td><?=$flightsale->idvooida?></td>
-                            <td><?=$flightsale->idvoovolta?></td>
+                            <td><?=$flightsale->flightsuser->nome?></td>
                             <td><?=$flightsale->precopago?></td>
                             <td><?=$flightsale->datacompra->format('Y-m-d')?></td>
-                            <td><?=$flightsale->registocheckin?></td>
                             <td>
-                                <!--<a href="<?/*=Url::toRoute('aeroporto/show', $opcheck->id)*/?>" class="btn btn-info" role="button">Show</a> -->
-                                <a href="<?=Url::toRoute('opcheckin/checkINEdit', $flightsale->id)?>" class="btn btn-info" role="button">Edit</a>
-                                <a href="<?=Url::toRoute('opcheckin/checkINDestroy', $flightsale->id)?>" class="btn btn-warning" role="button">Delete</a>
+                                <a href="<?=Url::toRoute('opcheckin/store', $flightsale->id)?>" class="btn btn-info" role="button">Realizar CheckIn</a>
                             </td>
                         </tr>
                     <?php } ?>

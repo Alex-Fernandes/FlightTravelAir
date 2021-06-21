@@ -17,6 +17,7 @@ class Flightsales extends Model
     static $belongs_to = array(
         array('flightsaleida',  'class_name' => 'Flight', 'foreign_key' => 'idvooida'),
         array('flightsalevolta',  'class_name' => 'Flight', 'foreign_key' => 'idvoovolta'),
+        array('flightsuser',  'class_name' => 'User', 'foreign_key' => 'iduser'),
     );
 
 }

@@ -4,164 +4,77 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('passageiroheader') ?>
-<?php $layovers = Data::get('layover'); ?>
-<?php $airports = Data::get('airport'); ?>
-<?php $flights = Data::get('flights');?>
-<?php $user = Data::get('user'); ?>
-<?php $flightsales = Data::get('flightsales'); ?>
-<?php ErrMgr::attach($flightsales); ?>
+<?php $flightsida = Data::get('flightsida');
+$flightsvolta = Data::get('flightsvolta');
+$flightsales = Data::get('flightsales');
+?>
+<!-- container -->
+<div class="container">
+    <div class="row">
+        <h1>Bilhete: </h1>
+        <div class="col-sm-12">
 
-<script type="text/javascript">
+            <?php
+            echo ' <h2 class="text-left top-space"> Voo de ' .$flightsida->airportorigem->nome. ' - '.$flightsida->airportdestino->nome.'</h2>';
+            ?>
 
-    function getAll(){
-        var ida = $('#idvooida').find('option:selected').data('price');
-        var volta = $('#idvoovolta').find('option:selected').data('price');
-        if (volta == null){
-            volta = 0;
-        }
-
-        var all = ida + volta;
-        console.log(all);
-        $('#precopago').val(all);
-    }
-
-</script>
-    <!-- container -->
-    <div class="container">
-        <h2 class="text-left top-space">Tabela de Voos</h2>
-        <h2 class="top-space"></h2>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-striped">
-
-                    <div class="top-margin">
-                        <div style="display: inline-block" >
-                            <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownstartend')?>">
-                                <label>Aeroporto Origem <span class="text-danger">*</span></label>
-                                <select name="idorigem" class="form-control">
-                                    <option selected value="0"> -- Selecione uma Opção -- </option>
-                                    <?php
-                                    foreach ($airports as $airport) {
-                                        echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
-                                    }
-                                    ?>
-                                </select>
-                                <br>
-                                <label>Aeroporto Destino <span class="text-danger">*</span></label>
-                                <select name="iddestino" class="form-control">
-                                    <option selected value="0"> -- Selecione uma Opção -- </option>
-                                    <?php
-                                    foreach ($airports as $airport) {
-                                        echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
-                                    }
-                                    ?>
-                                </select>
-                                <br>
-                                <div class="row">
-                                    <div class="col-lg-4 text-middle">
-                                        <button class="btn btn-action" type="submit">Search</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <div style="display: inline-block" >
-                            <form method="post" action="<?=Url::toRoute('passageiro/selectdropdowntime')?>">
-                                <label>Data Partida <span class="text-danger">*</span></label>
-                                <input id="idpartida" name="idpartida" type="date"  class="form-control">
-                                <br>
-                                <label>Data Chegada <span class="text-danger">*</span></label>
-                                <input id="idchegada" name="idchegada" type="date"  class="form-control">
-                                <br>
-                                <div class="row">
-                                    <div class="col-lg-4 text-middle">
-                                        <button class="btn btn-action" type="submit">Search</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <div style="display: inline-block" >
-                            <form method="post" action="<?=Url::toRoute('passageiro/bilhete')?>">
-                                <div class="row">
-                                    <div class="col-lg-4 text-middle">
-                                        <button class="btn btn-action" type="submit">Clear</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <br>
-                    <thead><th><h3>Voo </h3></th>
-                    <th><h3>Aeroporto Origem</h3></th><th><h3>Aeroporto Destino</h3></th><th><h3>Data Partida</h3></th></th><th><h3>Hora Partida</h3></th><th><h3>Data Chegada</h3>
-                    </th><th><h3>Hora Chegada</h3></th></th><th><h3>Distancia</h3></th></th><th><h3>Num Ordem</h3></th></thead>
+            <div class="col-sm-120">
+                <table class="table table-striped"><thead><th><h3>Origem</h3></th><th><h3>Destino</h3></th><th><h3>Data Partida</h3></th><th><h3>Hora Partida</h3></th><th><h3>Data Chegada</h3></th><th><h3>Hora Chegada</h3></th><th><h3>Distancia</h3></th></thead>
                     <tbody>
-                    <?php foreach ($layovers as $layover) { ?>
+                    <?php foreach ($flightsida->layovers as $flight) { ?>
                         <tr>
-                            <td><?=$layover->idvoo?></td>
-                            <td><?=$layover->airportorigem->nome?></td>
-                            <td><?=$layover->airportdestino->nome?></td>
-                            <td><?=$layover->dateorigin->format('Y-m-d')?></td>
-                            <td><?=$layover->horaorigin?></td>
-                            <td><?=$layover->dateend->format('Y-m-d')?></td>
-                            <td><?=$layover->horaend?></td>
-                            <td><?=$layover->distancia?></td>
-                            <td><?=$layover->numordem?></td>
+                            <td><?=$flight->airportorigem->nome?></td>
+                            <td><?=$flight->airportdestino->nome?></td>
+                            <td><?=$flight->dateorigin->format('Y-m-d')?></td>
+                            <td><?=$flight->horaorigin?></td>
+                            <td><?=$flight->dateend->format('Y-m-d')?></td>
+                            <td><?=$flight->horaend?></td>
+                            <td><?=$flight->distancia?></td>
                         </tr>
                     <?php } ?>
+
                     </tbody>
+
                 </table>
+
             </div>
-            <div class="col-sm-6">
-                <br>
-                <p>
-                    <a href="<?=Url::toRoute('passageiro/bilhete')?>" class="btn btn-info" role="button">Simulamento de uma Passagem</a>
-                </p>
-                <br>
-                <br>
-                <form method="post" action="<?=Url::toRoute('passageiro/storeflightsale', $user->id)?>">
-                    <div class="top-margin">
-                        <label>Bilhete de Ida: <span class="text-danger">*</span></label>
-                        <select name="idvooida" id="idvooida" class="form-control" onchange="getAll()">
-                            <option disabled selected value="0"> -- Selecione uma Opção -- </option>
-                            <?php
-                                foreach ($flights as $flight) {
-                                    echo ' <option value="'.$flight->id.'" data-price="'.$flight->precovenda.'">'.$flight->airportorigem->nome.' - '.$flight->airportdestino->nome.'</option>';
-                                }
-                            ?>
-                        </select>
-                        <?= ErrMgr::bind('idvooida') ?>
-                    </div>
-                    <br>
-                    <div class="top-margin">
-                        <label>Bilhete de Volta: <span class="text-danger">*</span></label>
-                        <select name="idvoovolta" id="idvoovolta" class="form-control" onchange="getAll()">
-                            <option value="0"> -- Selecione uma Opção se optar por bilhete de volta -- </option>
-                            <?php
-                                foreach ($flights as $flight) {
-                                    echo ' <option value="'.$flight->id.'" data-price="'.$flight->precovenda.'">'.$flight->airportorigem->nome.' - '.$flight->airportdestino->nome.'</option>';
-                                }
-                            ?>
-                        </select>
-                        <?= ErrMgr::bind('idvoovolta') ?>
-                    </div>
-                    <br>
-                    <div class="top-margin">
-                        <label>Preço Final: <span class="text-danger">*</span></label>
-                            <input value="<?= $flightsales->precopago?>" type="text" id="precopago" name="precopago"  disabled>&nbsp€
-                        <?= ErrMgr::bind('precopago') ?>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-4 text-middle">
-                            <button class="btn btn-action" type="submit">Comprar Bilhete</button>
-                        </div>
-                    </div>
-                </form>
+            <?php
+            echo ' <h2 class="text-left top-space"> Voo de ' .$flightsvolta->airportorigem->nome. ' - '.$flightsvolta->airportdestino->nome.'</h2>';
+            ?>
+            <div class="col-sm-120">
+                <table class="table table-striped"><thead><th><h3>Origem</h3></th><th><h3>Destino</h3></th><th><h3>Data Partida</h3></th><th><h3>Hora Partida</h3></th><th><h3>Data Chegada</h3></th><th><h3>Hora Chegada</h3></th><th><h3>Distancia</h3></th></thead>
+                    <tbody>
+                    <?php foreach ($flightsvolta->layovers as $flight) { ?>
+                        <tr>
+                            <td><?=$flight->airportorigem->nome?></td>
+                            <td><?=$flight->airportdestino->nome?></td>
+                            <td><?=$flight->dateorigin->format('Y-m-d')?></td>
+                            <td><?=$flight->horaorigin?></td>
+                            <td><?=$flight->dateend->format('Y-m-d')?></td>
+                            <td><?=$flight->horaend?></td>
+                            <td><?=$flight->distancia?></td>
+                        </tr>
+                    <?php } ?>
+
+                    </tbody>
+
+                </table>
+
             </div>
 
-        </div> <!-- /row -->
+        </div>
+        <br><br>
+            <h2>
+                <?php echo 'Preco Pago: '.$flightsales->precopago.' €' ?>
+            </h2>
+<br>
+        <div class="col-sm-6">
+            <br>
+            <p>
+                <a href="<?=Url::toRoute('passageiro/voos')?>" class="btn btn-info" role="button">Voltar</a>
+            </p>
+        </div>
+    </div> <!-- /row -->
 
-    </div>	<!-- /container -->
+</div>	<!-- /container -->
 <?php Layout::includeLayout('footer')?>

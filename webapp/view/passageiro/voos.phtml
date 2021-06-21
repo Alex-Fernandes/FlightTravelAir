@@ -18,26 +18,6 @@ Layout::includeLayout('passageiroheader') ?>
 
                     <div class="top-margin">
                             <div style="display: inline-block" >
-                                <form method="post" action="<?=Url::toRoute('passageiro/selectdropdowndestino')?>">
-                                    <label  style ="padding = 15px ">Aeroporto Destino <span class="text-danger">*</span></label>
-                                        <select name="iddestino" class="form-control">
-                                            <option selected value="0"> -- Selecione uma Opção -- </option>
-                                            <?php
-                                                foreach ($airports as $airport) {
-                                                    echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
-                                                }
-                                            ?>
-                                        </select>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-lg-4 text-middle">
-                                            <button class="btn btn-action" type="submit">Search</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <div style="display: inline-block" >
                                 <form method="post" action="<?=Url::toRoute('passageiro/selectdropdownorigem')?>">
                                     <label>Aeroporto Origem <span class="text-danger">*</span></label>
                                         <select name="idorigem" class="form-control">
@@ -57,6 +37,26 @@ Layout::includeLayout('passageiroheader') ?>
                                 </form>
                             </div>
                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        <div style="display: inline-block" >
+                            <form method="post" action="<?=Url::toRoute('passageiro/selectdropdowndestino')?>">
+                                <label  style ="padding = 15px ">Aeroporto Destino <span class="text-danger">*</span></label>
+                                <select name="iddestino" class="form-control">
+                                    <option selected value="0"> -- Selecione uma Opção -- </option>
+                                    <?php
+                                    foreach ($airports as $airport) {
+                                        echo ' <option value='.$airport->id.'>'.$airport->nome.'</option>';
+                                    }
+                                    ?>
+                                </select>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4 text-middle">
+                                        <button class="btn btn-action" type="submit">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                             <div style="display: inline-block" >
                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                         <div style="display: inline-block" >
@@ -72,14 +72,12 @@ Layout::includeLayout('passageiroheader') ?>
                     <br>
 
 
-                    <thead><th><h3>Voo </h3></th>
-                    <th><h3>Aeroporto Origem</h3></th><th><h3>Aeroporto Destino</h3></th><th><h3>Data Partida</h3></th></th><th><h3>Hora Partida</h3></th><th><h3>Data Chegada</h3>
-                    </th><th><h3>Hora Chegada</h3></th></th><th><h3>Distancia</h3></th></th><th><h3>Num Ordem</h3></th></thead>
+                    <thead><th><h3>Aeroporto Origem</h3></th><th><h3>Aeroporto Destino</h3></th><th><h3>Data Partida</h3></th></th><th><h3>Hora Partida</h3></th><th><h3>Data Chegada</h3>
+                    </th><th><h3>Hora Chegada</h3></th></th><th><h3>Distancia</h3></th></th></thead>
 
                     <tbody>
                     <?php foreach ($layovers as $layover) { ?>
                     <tr>
-                        <td><?=$layover->idvoo?></td>
                         <td><?=$layover->airportorigem->nome?></td>
                         <td><?=$layover->airportdestino->nome?></td>
                         <td><?=$layover->dateorigin->format('Y-m-d')?></td>
@@ -87,7 +85,6 @@ Layout::includeLayout('passageiroheader') ?>
                         <td><?=$layover->dateend->format('Y-m-d')?></td>
                         <td><?=$layover->horaend?></td>
                         <td><?=$layover->distancia?></td>
-                        <td><?=$layover->numordem?></td>
                     </tr>
                     <?php } ?>
                     </tbody>
@@ -98,7 +95,7 @@ Layout::includeLayout('passageiroheader') ?>
             <div class="col-sm-6">
                 <br>
                 <p>
-                    <a href="<?=Url::toRoute('passageiro/bilhete')?>" class="btn btn-info" role="button">Simulamento de uma Passagem</a>
+                    <a href="<?=Url::toRoute('passageiro/compra')?>" class="btn btn-info" role="button">Simulamento de uma Passagem</a>
                 </p>
             </div>
         </div> <!-- /row -->

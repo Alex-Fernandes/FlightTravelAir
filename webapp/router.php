@@ -57,6 +57,7 @@ Router::resource('passageiro', 'PassageiroAppController');
 /***** OpCheckInAPP Controller *****/
 Router::get('opcheckin/index', 'OPCheckInAppController/index');
 Router::get('opcheckin/checkin', 'FlightSalesController/index');
+Router::get('opcheckin/store', 'FlightSalesController/store');
 
 /***** GestorVooAppController Controller *****/
 Router::get('gestorvooapp/index', 'GestorVooAppController/index');

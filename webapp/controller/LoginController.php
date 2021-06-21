@@ -41,11 +41,11 @@ class LoginController extends BaseController
 
             switch ($role){
                 case 'admin':
-                    Redirect::toRoute('adminapp/index');
+                    Redirect::toRoute('user/index');
                     break;
 
                 case 'passageiro':
-                    Redirect::toRoute('passageiro/index');
+                    Redirect::toRoute('passageiro/voos');
                     break;
 
                 case 'opcheckin':
@@ -53,7 +53,7 @@ class LoginController extends BaseController
                     break;
 
                 case 'gestorvoo':
-                    Redirect::toRoute('gestorvooapp/index');
+                    Redirect::toRoute('flights/index');
                     break;
 
                 default:

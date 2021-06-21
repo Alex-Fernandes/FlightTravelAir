@@ -5,13 +5,14 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class FlightSalesController extends BaseAuthController implements ResourceControllerInterface
+class FlightSalesController extends BaseAuthController
 {
-    public function index()
+    public function index($id)
     {
         $this->loginFilterbyRole('opcheckin');
-        $flightsales = Flightsales::all();
-        return View::make('opcheckin.checkin', ['flightsales' => $flightsales]);
+        $flightsales = Flightsales::all(array('conditions' => array('idvooida = ? and registocheckin IS NULL', $id )));
+        $flights = Flight::find([$id]);
+        return View::make('opcheckin.checkin', ['flightsales' => $flightsales, 'flights' => $flights]);
     }
 
 
@@ -20,9 +21,21 @@ class FlightSalesController extends BaseAuthController implements ResourceContro
 
     }
 
-    public function store()
+    public function store($id)
     {
-        // TODO: Implement store() method.
+        $this->loginFilterbyRole('opcheckin');
+
+        $flightsales = Flightsales::find([$id]);
+
+        $flightsales->registocheckin = $_SESSION['APPuserid'];
+
+        if($flightsales->is_valid()){
+            $flightsales->save();
+            Redirect::toRoute('opcheckin/checkin', $flightsales->idvooida);
+        } else {
+            //redirect to form with data and errors
+            Redirect::flashToRoute('opcheckin/checkin', ['flightsales' => $flightsales]);
+        }
     }
 
     public function show($id)

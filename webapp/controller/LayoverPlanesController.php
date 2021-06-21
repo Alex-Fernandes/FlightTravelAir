@@ -58,12 +58,12 @@ class LayoverPlanesController extends BaseAuthController
         $this->loginFilterbyRole('gestorvoo');
         $planeLegs = Layoverplanes::find([$id]);
         $planes = Plane::all();
-        $legs = Layover::all();
+        $layover = Layover::all();
 
         if (is_null($planeLegs)) {
             //TODO redirect to standard error page
         } else {
-            return View::make('layoverplanes.edit', ['layoverplanes' => $planeLegs, 'planes' => $planes, 'layover' => $legs]);
+            return View::make('layoverplanes.edit', ['layoverplanes' => $planeLegs, 'planes' => $planes, 'layover' => $layover]);
         }
     }
 

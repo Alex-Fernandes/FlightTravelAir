@@ -58,23 +58,30 @@ class PassageiroAppController extends BaseAuthController
             $flightsales->idvoovolta = 3;
         }
 
-        $ida = $this->sendPriceBack($flightsales->idvooida);
-        if($flightsales->idvoovolta == 0){
-            $volta = null;
-        }else{
-            $volta = $this->sendPriceBack($flightsales->idvoovolta);
-        }
 
-        $flightsales->precopago = $ida + $volta;
-
-        if($flightsales->is_valid()){
-            $flightsales->save();
-
-            Redirect::toRoute('passageiro/voos');
-        } else {
-            //redirect to form with data and errors
+        if(is_null($flightsales->idvooida) == true){
             $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
             Redirect::flashToRoute('passageiro/bilhete', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
+        }
+        else{
+            $ida = $this->sendPriceBack($flightsales->idvooida);
+            if($flightsales->idvoovolta == 0){
+                $volta = null;
+            }else{
+                $volta = $this->sendPriceBack($flightsales->idvoovolta);
+            }
+
+            $flightsales->precopago = $ida + $volta;
+
+            if($flightsales->is_valid()){
+                $flightsales->save();
+
+                Redirect::toRoute('passageiro/voos');
+            } else {
+                //redirect to form with data and errors
+                $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
+                Redirect::flashToRoute('passageiro/bilhete', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
+            }
         }
     }
 
@@ -112,6 +119,7 @@ class PassageiroAppController extends BaseAuthController
         }
     }
 
+    //dropdown para os voos
     public function selectdropdowndestino(){
         $this->loginFilterbyRole('passageiro');
         $selection = Post::get('iddestino');
@@ -125,7 +133,7 @@ class PassageiroAppController extends BaseAuthController
         }
         return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
     }
-
+    //dropdown para os voos
     public function selectdropdownorigem(){
         $this->loginFilterbyRole('passageiro');
         $selection = Post::get('idorigem');
@@ -138,7 +146,7 @@ class PassageiroAppController extends BaseAuthController
         }
         return View::make('passageiro.voos', ['layover' => $layover, 'airport' => $airport]);
     }
-
+    //dropdown para a compra
     public function selectdropdownstartend(){
         $this->loginFilterbyRole('passageiro');
         $origem = Post::get('idorigem');
@@ -154,7 +162,7 @@ class PassageiroAppController extends BaseAuthController
         }
         return View::make('passageiro.bilhete', ['user' => $user,'layover' => $layover, 'airport' => $airport , 'flights' => $flights]);
     }
-
+    //dropdown para a compra
     public function selectdropdowntime(){
         $this->loginFilterbyRole('passageiro');
         $date = date('Y-m-d', time());

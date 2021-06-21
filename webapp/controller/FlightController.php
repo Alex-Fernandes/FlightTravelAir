@@ -12,7 +12,7 @@ class FlightController extends BaseAuthController implements ResourceControllerI
     public function index()
     {
         $this->loginFilterbyRole('gestorvoo');
-        $flights = Flight::all();
+        $flights = Flight::all(array('conditions' => array('id != ?', 3)));
         return View::make('flights.index', ['flights' => $flights]);
     }
 

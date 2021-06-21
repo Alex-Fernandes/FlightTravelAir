@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 20, 2021 at 11:34 PM
+-- Generation Time: Jun 21, 2021 at 12:14 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `flightsales` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idUser` int(11) NOT NULL,
   `idVooIda` int(11) NOT NULL,
-  `idVooVolta` int(11) DEFAULT '3',
+  `idVooVolta` int(11) NOT NULL DEFAULT '3',
   `precoPago` int(11) NOT NULL,
   `dataCompra` datetime NOT NULL,
   `registoCheckIn` int(11) DEFAULT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `flightsales` (
   KEY `idVooIda` (`idVooIda`),
   KEY `idVooVolta` (`idVooVolta`),
   KEY `registoCheckIn` (`registoCheckIn`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `flightsales`
@@ -103,8 +103,7 @@ INSERT INTO `flightsales` (`id`, `idUser`, `idVooIda`, `idVooVolta`, `precoPago`
 (2, 9, 2, 1, 545, '2021-06-20 18:06:46', NULL),
 (7, 9, 2, 3, 520, '2021-06-20 22:06:29', NULL),
 (9, 9, 2, 3, 520, '2021-06-20 23:06:28', NULL),
-(10, 9, 3, 3, 0, '2021-06-20 23:06:26', NULL),
-(11, 9, 3, 3, 0, '2021-06-20 23:06:54', NULL);
+(13, 9, 2, 3, 520, '2021-06-21 00:06:15', NULL);
 
 -- --------------------------------------------------------
 

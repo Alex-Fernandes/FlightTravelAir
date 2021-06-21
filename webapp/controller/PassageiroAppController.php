@@ -17,7 +17,7 @@ class PassageiroAppController extends BaseAuthController
     public function voos(){
         $this->loginFilterbyRole('passageiro');
         $user = User::find([$_SESSION['APPuserid']]);
-        $airport = Airports::all();
+        $airport = Airports::all(array('conditions' => array('id != ?', 7)));
         $date = date('Y-m-d', time());
         $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
         return View::make('passageiro.voos', ['user' => $user, 'layover' => $layover, 'airport' => $airport]);
@@ -32,8 +32,8 @@ class PassageiroAppController extends BaseAuthController
 
     public function bilhete(){
         $this->loginFilterbyRole('passageiro');
-        $airport = Airports::all();
-        $flights = Flight::all();
+        $airport = Airports::all(array('conditions' => array('id != ?', 7)));
+        $flights = Flight::all(array('conditions' => array('id != ?', 3)));
         $user = User::find([$_SESSION['APPuserid']]);
         $date = date('Y-m-d', time());
         $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
@@ -53,11 +53,6 @@ class PassageiroAppController extends BaseAuthController
         $flightsales->iduser = $id;
         $date = date('Y-m-d H:m:s', time());
         $flightsales->datacompra = $date;
-
-        if($flightsales->idvooida == 3){
-            $layover = Layover::all(array('conditions' => array('dateend >= ?', $date)  ,'order' => 'dateorigin asc'));
-            Redirect::flashToRoute('passageiro/bilhete', ['user' => $user,'flightsales' => $flightsales, 'layover' => $layover, 'airport' => $airport]);
-        }
 
         if ($flightsales->idvoovolta == 0){
             $flightsales->idvoovolta = 3;
